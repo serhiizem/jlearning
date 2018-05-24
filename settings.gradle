@@ -1,0 +1,5 @@
+rootProject.name = 'provider'
+include 'ui'
+include 'auth-server'
+include 'resource'
+

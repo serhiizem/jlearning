@@ -1,0 +1,10 @@
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-security"
+    compile "org.springframework.security.oauth:spring-security-oauth2"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "org.springframework.boot:spring-boot-starter-freemarker"
+    compile "org.webjars:jquery:${jqueryVersion}"
+    compile "org.webjars:bootstrap:${bootstrapVersion}"
+    compile "org.webjars:webjars-locator"
+    testCompile "org.apache.httpcomponents:httpclient"
+}
