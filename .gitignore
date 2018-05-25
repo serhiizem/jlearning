@@ -7,6 +7,7 @@
 build/
 dist/
 node/
+out/
 node_modules/
 e2e/*.js
 e2e/*.map

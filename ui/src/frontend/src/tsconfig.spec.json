@@ -11,7 +11,7 @@
     ]
   },
   "files": [
-    "test.ts"
+    "frontend/src/test.ts"
   ],
   "include": [
     "**/*.spec.ts",

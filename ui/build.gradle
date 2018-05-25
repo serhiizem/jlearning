@@ -2,24 +2,31 @@ plugins {
   id "com.moowork.node" version "0.12"
 }
 
+def frontendDir = "${project.projectDir}/src/frontend"
+
 node {
   version = '8.8.1'
   npmVersion = '5.4.2'
   download = true
-  workDir = file("node")
-  nodeModulesDir = file("${project.projectDir}")
+  workDir = file("${frontendDir}/node")
+  nodeModulesDir = file("${frontendDir}")
 }
 
 sourceSets {
   main {
     resources {
-      srcDirs = ["dist", "$projectDir/src/main/resources"]
+      srcDirs = ["${frontendDir}/dist", "$projectDir/src/main/resources"]
     }
   }
 }
 
 task buildUi(type: NpmTask) {
+  workingDir = "${frontendDir}"
   args = ['run', 'build']
+}
+
+npm_install {
+  workingDir = "${frontendDir}"
 }
 
 buildUi.dependsOn(npm_install)
