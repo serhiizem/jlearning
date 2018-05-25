@@ -25,15 +25,12 @@
             <div th:if="${param.error}" class="alert alert-danger">
                 <p>Invalid username or password.</p>
             </div>
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" class="form-control" id="username" name="username"/>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password"/>
-            </div>
-            <input type="hidden" id="csrf_token" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <input type="text" id="username" name="username" placeholder="Username"/>
+            <input type="password" id="password" name="password" placeholder="Password"/>
+            <input type="hidden" id="csrf_token"
+                   th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
             <button type="submit" class="login-page-button submitable">Submit</button>
         </form>
     </div>

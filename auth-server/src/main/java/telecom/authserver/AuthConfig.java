@@ -39,7 +39,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
             @Override
             public void postHandle(HttpServletRequest request,
                                    HttpServletResponse response, Object handler,
-                                   ModelAndView modelAndView) throws Exception {
+                                   ModelAndView modelAndView) {
                 if (modelAndView != null
                         && modelAndView.getView() instanceof RedirectView) {
                     RedirectView redirect = (RedirectView) modelAndView.getView();

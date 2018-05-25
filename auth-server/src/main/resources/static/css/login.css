@@ -23,6 +23,18 @@
     0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
+.form input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
 .button-if-form-ok {
     background: #596cac;
 }
@@ -140,18 +152,6 @@
     background-color: gray;
 }
 
-.register-button {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    border: 0;
-    padding: 15px;
-    font-size: 14px;
-    color: #383436;
-    -webkit-transition: all ease;
-    transition: all ease;
-}
-
 .login-page-button {
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
@@ -172,4 +172,20 @@
     -ms-transition: background-color 200ms linear;
     transition: background-color 200ms linear;
     cursor: pointer;
+}
+
+:focus::-webkit-input-placeholder {
+    color: transparent
+}
+
+:focus::-moz-placeholder {
+    color: transparent
+}
+
+:focus:-moz-placeholder {
+    color: transparent
+}
+
+:focus:-ms-input-placeholder {
+    color: transparent
 }
