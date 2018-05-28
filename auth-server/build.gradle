@@ -6,5 +6,6 @@ dependencies {
     compile "org.webjars:jquery:${jqueryVersion}"
     compile "org.webjars:bootstrap:${bootstrapVersion}"
     compile "org.webjars:webjars-locator"
+    compile 'com.google.guava:guava'
     testCompile "org.apache.httpcomponents:httpclient"
 }

@@ -1,36 +1,31 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {TelecomProviderAppComponent} from './telecom-provider-app.component';
+import {DemoComponent} from './demo/demo.component';
 import {HttpClientModule} from '@angular/common/http';
-import {TariffComponent} from "./tariffs/tariff.component";
-import {MainPageComponent} from "./main/main-page.component";
+import {TariffsComponent} from "./tariffs/tariffs.component";
+import {TroubleshootingComponent} from "./troubleshooting/troubleshooting.component";
 import {RouterModule} from "@angular/router";
-import {appRoutes} from "./router";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule} from "@angular/material";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AppComponent} from "./app.component";
+import {routes} from "./routes";
+import {AuthService} from "./shared/auth.service";
 
 @NgModule({
   declarations: [
-    TelecomProviderAppComponent,
-    MainPageComponent,
-    TariffComponent
+    AppComponent,
+    DemoComponent,
+    TariffsComponent,
+    TroubleshootingComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    BrowserAnimationsModule
+    RouterModule.forRoot(routes),
   ],
-  providers: [],
-  bootstrap: [TelecomProviderAppComponent]
+  providers: [
+    AuthService
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }

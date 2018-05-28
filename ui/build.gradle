@@ -20,6 +20,13 @@ sourceSets {
   }
 }
 
+task cleanDistFolder(type: Delete) {
+  //noinspection GroovyAssignabilityCheck
+  delete 'src/frontend/dist'
+}
+
+tasks.clean.dependsOn(cleanDistFolder)
+
 task buildUi(type: NpmTask) {
   workingDir = "${frontendDir}"
   args = ['run', 'build']

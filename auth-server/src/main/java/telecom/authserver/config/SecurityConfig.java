@@ -1,31 +1,29 @@
-package telecom.authserver;
+package telecom.authserver.config;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import telecom.authserver.RoleBasedAuthenticationSuccessHandler;
 
 @Configuration
 @Order(-20)
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // @formatter:off
-        http
-                .formLogin().loginPage("/login").permitAll()
-                .and()
-                .requestMatchers().antMatchers("/login", "/oauth/authorize", "/oauth/confirm_access")
-                .and()
-                .authorizeRequests().anyRequest().authenticated();
-        // @formatter:on
+        http.formLogin().successHandler(new RoleBasedAuthenticationSuccessHandler())
+                .loginPage("/login")
+                .permitAll();
+
+        http.requestMatchers().antMatchers("/login", "/oauth/authorize");
+        http.authorizeRequests().anyRequest().authenticated();
     }
 
     @Override
@@ -33,10 +31,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.parentAuthenticationManager(authenticationManager);
 
         auth.inMemoryAuthentication()
-                .withUser("test")
-                .password("test").roles("USER")
-                .and().withUser("admin")
-                .password("password").authorities("ROLE_ADMIN");
+                .withUser("user")
+                .password("user").authorities("USER")
+                .and()
+                .withUser("csr")
+                .password("csr").authorities("ROLE_CSR")
+                .and()
+                .withUser("services")
+                .password("services").authorities("ROLE_SERVICE_MANAGER");
     }
 }
-
