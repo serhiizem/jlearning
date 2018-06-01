@@ -20,12 +20,6 @@ export class AppComponent implements OnDestroy {
     })
   }
 
-  logout() {
-    this.http.post('logout', {}).finally(() => {
-      this.authService.setAuthenticated(false);
-    }).subscribe();
-  }
-
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

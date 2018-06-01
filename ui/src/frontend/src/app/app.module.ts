@@ -1,7 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 
-import {DemoComponent} from './demo/demo.component';
 import {HttpClientModule} from '@angular/common/http';
 import {TariffsComponent} from "./tariffs/tariffs.component";
 import {TroubleshootingComponent} from "./troubleshooting/troubleshooting.component";
@@ -9,18 +8,23 @@ import {RouterModule} from "@angular/router";
 import {AppComponent} from "./app.component";
 import {routes} from "./routes";
 import {AuthService} from "./shared/auth.service";
+import {SidebarComponent} from "./sidebar/sidebar.component";
+import {NavbarComponent} from "./navbar/navbar.component";
+import {HomeComponent} from "./home/home.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    DemoComponent,
+    HomeComponent,
     TariffsComponent,
-    TroubleshootingComponent
+    TroubleshootingComponent,
+    SidebarComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
   ],
   providers: [
     AuthService

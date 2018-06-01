@@ -3,11 +3,15 @@ package telecom.authserver.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import telecom.authserver.RoleBasedAuthenticationSuccessHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import telecom.authserver.SameOriginRoleBasedAuthenticationSuccessHandler;
 
 @Configuration
 @Order(-20)
@@ -18,12 +22,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.formLogin().successHandler(new RoleBasedAuthenticationSuccessHandler())
+        http.cors().configurationSource(corsConfigurationSource());
+
+        http.formLogin().successHandler(new SameOriginRoleBasedAuthenticationSuccessHandler())
                 .loginPage("/login")
                 .permitAll();
 
-        http.requestMatchers().antMatchers("/login", "/oauth/authorize");
+        http.requestMatchers().antMatchers("/login", "/oauth/authorize", "/logout");
         http.authorizeRequests().anyRequest().authenticated();
+    }
+
+    private CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.addAllowedOrigin("*");
+        config.setAllowCredentials(true);
+        config.addAllowedHeader("X-Requested-With");
+        config.addAllowedHeader("Content-Type");
+        config.addAllowedMethod(HttpMethod.GET);
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 
     @Override
