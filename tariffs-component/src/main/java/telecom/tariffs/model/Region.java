@@ -14,6 +14,6 @@ public class Region extends DomainEntity {
     @SneakyThrows
     public Region(ResultSet resultSet) {
         super(resultSet);
-        this.name = resultSet.getString("name");
+        this.name = resultSet.getString("name_region");
     }
 }

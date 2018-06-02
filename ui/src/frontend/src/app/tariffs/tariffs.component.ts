@@ -14,9 +14,12 @@ export class TariffsComponent {
   }
 
   ngOnInit() {
-    this.tariffsService.getAllRegions().subscribe(res => {
-      this.regions = res;
-      console.log(res)
+    this.http.get('regions').subscribe(res => {
+      console.log(res);
     });
+    // this.tariffsService.getAllRegions().subscribe(res => {
+    //   this.regions = res;
+    //   console.log(res)
+    // });
   }
 }
