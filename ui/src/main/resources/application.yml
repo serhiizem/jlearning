@@ -24,6 +24,9 @@ zuul:
     user:
       path: /user/**
       url: http://localhost:9999/uaa/user
+    regions:
+      path: /regions/**
+      url: http://localhost:8010
 
 logging:
   level:

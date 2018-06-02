@@ -12,6 +12,56 @@ import {SidebarComponent} from "./sidebar/sidebar.component";
 import {NavbarComponent} from "./navbar/navbar.component";
 import {HomeComponent} from "./home/home.component";
 
+import {
+  MatButtonModule,
+  MatCardModule, MatDatepickerModule, MatDatepickerToggle,
+  MatFormFieldModule,
+  MatIconModule, MatInputModule,
+  MatMenuModule, MatNativeDateModule, MatPaginatorModule,
+  MatSelectModule, MatTableModule,
+  MatTabsModule,
+  MatToolbarModule
+} from "@angular/material";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {CdkTableModule} from "@angular/cdk/table";
+import {TariffsService} from "./shared/tariffs.service";
+
+@NgModule({
+  imports: [
+    MatInputModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatTabsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTableModule,
+    CdkTableModule,
+    MatPaginatorModule
+  ],
+  exports: [
+    MatInputModule,
+    MatButtonModule,
+    MatMenuModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatTabsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTableModule,
+    CdkTableModule,
+    MatPaginatorModule
+  ]
+})
+export class MaterialModule {}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,10 +74,13 @@ import {HomeComponent} from "./home/home.component";
   imports: [
     BrowserModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     RouterModule.forRoot(routes, { useHash: true }),
   ],
   providers: [
-    AuthService
+    AuthService,
+    TariffsService
   ],
   bootstrap: [AppComponent]
 })

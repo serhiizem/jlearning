@@ -1,0 +1,15 @@
+server:
+  port: 8010
+security:
+  oauth2:
+    resource:
+      userInfoUri: http://localhost:9999/uaa/user
+logging:
+  level:
+    org.springframework.security: DEBUG
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres
+    driver-class-name: org.postgresql.Driver
+    tomcat:
+      max-active: 8

@@ -20,8 +20,7 @@ public enum UserRole {
                     .build();
 
     public static UserRole fromRoleName(String roleName) {
-        roleName = extractMeaningfulRoleName(roleName);
-        UserRole userRole = userRolesMapper.get(roleName);
+        UserRole userRole = userRolesMapper.get(extractMeaningfulRoleName(roleName));
         if (userRole == null) {
             throw new RoleNotFoundException(roleName);
         }
