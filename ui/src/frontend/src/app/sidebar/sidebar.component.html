@@ -1,14 +1,16 @@
-<div class="sidebar-wrapper">
-  <div class="logo">
-    <a href="#" class="simple-text">
-      Telecom Company
-    </a>
+<div class="sidebar">
+  <img class="cover-image sidebar-transition"
+       src="../../assets/img/sidebar-img.jpg">
+  <div class="sidebar-wrapper">
+    <ul class="sidebar-nav">
+      <li routerLinkActive="active"
+           *ngFor="let menuItem of menuItems"
+           class="sidebar-item"
+      >
+        <a [routerLink]="[menuItem.path]">
+          {{menuItem.title}}
+        </a>
+      </li>
+    </ul>
   </div>
-  <ul class="nav responsive-nav">
-    <li routerLinkActive="active" *ngFor="let menuItem of menuItems" class="{{menuItem.class}}">
-      <a [routerLink]="[menuItem.path]">
-        <p>{{menuItem.title}}</p>
-      </a>
-    </li>
-  </ul>
 </div>

@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'navbar',
-  templateUrl: 'navbar.component.html'
+  templateUrl: 'navbar.component.html',
+  styleUrls: ['navbar.component.css']
 })
 export class NavbarComponent {
 

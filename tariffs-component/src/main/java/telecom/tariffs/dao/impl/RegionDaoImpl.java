@@ -24,7 +24,7 @@ public class RegionDaoImpl extends CrudDaoImpl<Region>
     @Override
     @SneakyThrows
     public void fillSaveStatement(CallableStatement statement, Region entity) {
-        statement.setString("name_region", entity.getName());
+        statement.setString("name", entity.getName());
     }
 
     @Override

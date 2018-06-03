@@ -14,17 +14,26 @@ import {HomeComponent} from "./home/home.component";
 
 import {
   MatButtonModule,
-  MatCardModule, MatDatepickerModule, MatDatepickerToggle,
+  MatCardModule,
+  MatCheckboxModule,
+  MatDatepickerModule,
+  MatDialogModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule,
-  MatMenuModule, MatNativeDateModule, MatPaginatorModule,
-  MatSelectModule, MatTableModule,
+  MatIconModule,
+  MatInputModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatSelectModule,
+  MatTableModule,
   MatTabsModule,
   MatToolbarModule
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CdkTableModule} from "@angular/cdk/table";
 import {TariffsService} from "./shared/tariffs.service";
+import {FormsModule} from "@angular/forms";
+import {ImageCropperModule} from "ngx-image-cropper";
+import {UploadPictureDialog} from "./tariffs/picture-upload/upload-picture-dialog";
 
 @NgModule({
   imports: [
@@ -41,7 +50,8 @@ import {TariffsService} from "./shared/tariffs.service";
     MatNativeDateModule,
     MatTableModule,
     CdkTableModule,
-    MatPaginatorModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   exports: [
     MatInputModule,
@@ -57,7 +67,8 @@ import {TariffsService} from "./shared/tariffs.service";
     MatNativeDateModule,
     MatTableModule,
     CdkTableModule,
-    MatPaginatorModule
+    MatCheckboxModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule {}
@@ -69,18 +80,24 @@ export class MaterialModule {}
     TariffsComponent,
     TroubleshootingComponent,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    UploadPictureDialog
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
+    ImageCropperModule,
     BrowserAnimationsModule,
     MaterialModule,
-    RouterModule.forRoot(routes, { useHash: true }),
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   providers: [
     AuthService,
     TariffsService
+  ],
+  entryComponents: [
+    UploadPictureDialog
   ],
   bootstrap: [AppComponent]
 })
