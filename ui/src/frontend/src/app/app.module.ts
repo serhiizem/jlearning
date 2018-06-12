@@ -1,16 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {Injectable, NgModule} from '@angular/core';
 
-import {HttpClientModule} from '@angular/common/http';
-import {TariffsComponent} from "./tariffs/tariffs.component";
-import {TroubleshootingComponent} from "./troubleshooting/troubleshooting.component";
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {RouterModule} from "@angular/router";
 import {AppComponent} from "./app.component";
 import {routes} from "./routes";
-import {AuthService} from "./shared/auth.service";
-import {SidebarComponent} from "./sidebar/sidebar.component";
-import {NavbarComponent} from "./navbar/navbar.component";
-import {HomeComponent} from "./home/home.component";
 
 import {
   MatButtonModule,
@@ -30,10 +24,10 @@ import {
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CdkTableModule} from "@angular/cdk/table";
-import {TariffsService} from "./shared/tariffs.service";
 import {FormsModule} from "@angular/forms";
 import {ImageCropperModule} from "ngx-image-cropper";
-import {UploadPictureDialog} from "./tariffs/picture-upload/upload-picture-dialog";
+import {LoginComponent} from "./login/login.component";
+import {CookieService} from "ngx-cookie-service";
 
 @NgModule({
   imports: [
@@ -71,17 +65,24 @@ import {UploadPictureDialog} from "./tariffs/picture-upload/upload-picture-dialo
     MatDialogModule
   ]
 })
-export class MaterialModule {}
+export class MaterialModule {
+}
+
+@Injectable()
+export class XhrInterceptor implements HttpInterceptor {
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const xhr = req.clone({
+      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+    });
+    return next.handle(xhr);
+  }
+}
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    TariffsComponent,
-    TroubleshootingComponent,
-    SidebarComponent,
-    NavbarComponent,
-    UploadPictureDialog
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -90,15 +91,17 @@ export class MaterialModule {}
     ImageCropperModule,
     BrowserAnimationsModule,
     MaterialModule,
-    RouterModule.forRoot(routes, { useHash: true })
+    RouterModule.forRoot(routes, {useHash: true})
   ],
   providers: [
-    AuthService,
-    TariffsService
+    CookieService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: XhrInterceptor,
+      multi: true
+    }
   ],
-  entryComponents: [
-    UploadPictureDialog
-  ],
+  entryComponents: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

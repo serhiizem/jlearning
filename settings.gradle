@@ -4,3 +4,5 @@ include 'ui'
 include 'auth-server'
 include 'resource'
 include 'tariffs-component'
+include 'discovery-service'
+

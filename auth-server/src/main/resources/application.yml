@@ -1,9 +1,17 @@
 server:
   port: 9999
-  contextPath: /uaa
+  context-path: /uaa
+
+spring:
+  application:
+      name: auth-server
+
 security:
-  user:
-    password: password
-logging:
-  level:
-    org.springframework.security: DEBUG
+  oauth2:
+    resource:
+      filter-order: 3
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/

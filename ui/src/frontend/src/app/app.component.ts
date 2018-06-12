@@ -1,7 +1,6 @@
 import {Component, OnDestroy} from '@angular/core';
 import 'rxjs/add/operator/finally';
 import {HttpClient} from "@angular/common/http";
-import {AuthService} from "./shared/auth.service";
 import {Subscription} from "rxjs/Subscription";
 
 @Component({
@@ -14,10 +13,7 @@ export class AppComponent implements OnDestroy {
   authenticated = false;
   subscription: Subscription;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
-    this.subscription = this.authService._authenticated$.subscribe(authenticated => {
-      this.authenticated = authenticated;
-    })
+  constructor(private http: HttpClient) {
   }
 
   ngOnDestroy(): void {
