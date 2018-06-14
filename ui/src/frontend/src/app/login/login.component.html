@@ -1,4 +1,50 @@
-<h1>Login</h1>
-<input type="text" [(ngModel)]="loginData.username" />
-<input type="password"  [(ngModel)]="loginData.password"/>
-<button (click)="login()" type="submit">Login</button>
+<div class="wrapper">
+  <div class="form">
+    <div class="transition-container">
+      <ul class="options">
+        <li [class.active]="active === 'login'"
+            (click)="active = 'login'">Sign in
+        </li>
+        <li [class.active]="active === 'register'"
+            (click)="active = 'register'">Register
+        </li>
+        <li [class.active]="active === 'reset'"
+            (click)="active = 'reset;'">Reset account
+        </li>
+      </ul>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)"
+          *ngIf="active === 'login'" autocomplete="off" novalidate>
+      <input [ngClass]="{'error': !isFieldValid(loginFormUsername)}"
+             formControlName="username"
+             type="text" placeholder="Username"/>
+      <input [ngClass]="{'error': !isFieldValid(loginFormPassword)}"
+             formControlName="password"
+             type="password" placeholder="Password"/>
+      <button [disabled]="loginForm.invalid"
+              [ngClass]="{'button-if-invalidForm': loginForm.invalid,
+              'button-if-form-ok': !loginForm.invalid}"
+              type="submit">login
+      </button>
+    </form>
+
+    <form [formGroup]="registerForm" (ngSubmit)="login(registerForm.value)"
+          *ngIf="active === 'register'" autocomplete="off" novalidate>
+      <input type="text"
+             [ngClass]="{'error': !isFieldValid(registerFormUsername)}"
+             formControlName="username" placeholder="Username"/>
+      <input type="password"
+             [ngClass]="{'error': !isFieldValid(registerFormPassword)}"
+             formControlName="password" placeholder="Password"/>
+      <input type="text"
+             [ngClass]="{'error': !isFieldValid(emailAddress)}"
+             formControlName="emailAddress" placeholder="Email Address"/>
+      <button [disabled]="registerForm.invalid || disabled"
+              [ngClass]="{'button-if-invalidForm': registerForm.invalid,
+              'button-if-form-ok': !registerForm.invalid}"
+              type="submit">create
+      </button>
+    </form>
+  </div>
+</div>

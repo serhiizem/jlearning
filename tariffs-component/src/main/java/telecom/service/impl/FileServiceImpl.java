@@ -23,7 +23,7 @@ import java.io.IOException;
 
 @Slf4j
 @Service
-@PropertySource("classpath:s3.properties")
+@PropertySource("s3.properties")
 public class FileServiceImpl implements FileService {
 
     @Value("${bucket.name}")

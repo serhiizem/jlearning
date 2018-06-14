@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {Injectable, NgModule} from '@angular/core';
+import {NgModule} from '@angular/core';
 
-import {HTTP_INTERCEPTORS, HttpClientModule, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
 import {RouterModule} from "@angular/router";
 import {AppComponent} from "./app.component";
 import {routes} from "./routes";
@@ -24,10 +24,11 @@ import {
 } from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {CdkTableModule} from "@angular/cdk/table";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ImageCropperModule} from "ngx-image-cropper";
 import {LoginComponent} from "./login/login.component";
 import {CookieService} from "ngx-cookie-service";
+import {AuthenticationInterceptor} from "./shared/authentication-interceptor";
 
 @NgModule({
   imports: [
@@ -68,17 +69,6 @@ import {CookieService} from "ngx-cookie-service";
 export class MaterialModule {
 }
 
-@Injectable()
-export class XhrInterceptor implements HttpInterceptor {
-
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const xhr = req.clone({
-      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
-    });
-    return next.handle(xhr);
-  }
-}
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,6 +77,11 @@ export class XhrInterceptor implements HttpInterceptor {
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-CSRF-TOKEN'
+    }),
+    ReactiveFormsModule,
     FormsModule,
     ImageCropperModule,
     BrowserAnimationsModule,
@@ -97,7 +92,7 @@ export class XhrInterceptor implements HttpInterceptor {
     CookieService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: XhrInterceptor,
+      useClass: AuthenticationInterceptor,
       multi: true
     }
   ],
