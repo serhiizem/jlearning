@@ -21,11 +21,9 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/
 
-feign.hystirx.enable: true
-
 security:
   oauth2:
     resource:
-      id: order-service
+      id: tariffs-service
       user-info-uri: http://localhost:8080/uaa/user
       prefer-token-info: false

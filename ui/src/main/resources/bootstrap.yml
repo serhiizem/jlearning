@@ -14,11 +14,11 @@ zuul:
     uaa:
       path: /uaa/**
       sensitiveHeaders:
-      serviceId: auth-server
+      url: http://localhost:9999/
     order:
       path: /tariffs/**
       sensitiveHeaders:
-      serviceId: tariffs-service
+      url: http://localhost:8010/
   add-proxy-headers: true
 
 security:
