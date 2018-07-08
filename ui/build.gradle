@@ -43,8 +43,10 @@ processResources.dependsOn(buildUi)
 jar.dependsOn(buildUi)
 
 dependencies {
-  compile 'org.springframework.cloud:spring-cloud-starter-zuul'
-  compile 'org.springframework.cloud:spring-cloud-starter-oauth2'
-  compile "org.springframework.security:spring-security-jwt"
-  compile 'org.apache.httpcomponents:httpclient'
+  compile "org.springframework.cloud:spring-cloud-starter-config"
+  compile "org.springframework.cloud:spring-cloud-starter-eureka"
+  compile "org.springframework.cloud:spring-cloud-starter-zuul"
+  compile "org.springframework.cloud:spring-cloud-starter-security"
+  compile "org.springframework.cloud:spring-cloud-starter-oauth2"
+  compile "org.apache.httpcomponents:httpclient"
 }

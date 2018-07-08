@@ -31,10 +31,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     params.set('username', formValues.username);
     params.set('password', formValues.password);
     params.set('grant_type', 'password');
-    params.set('client_id', 'fooClientIdPassword');
     let headers = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'Authorization': 'Basic ' + btoa("fooClientIdPassword:secret")
+      'Authorization': 'Basic ' + btoa("android:android")
     });
 
     this.http.post('/uaa/oauth/token', params.toString(), {
@@ -44,7 +43,6 @@ export class LoginComponent implements OnInit, OnDestroy {
         token => {
           console.log(token);
           this.saveToken(token);
-          this.getRegions(token);
         },
         err => {
           console.log(err)
@@ -56,11 +54,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.cookieService.set("access_token", token.access_token, expireDate);
   }
 
-  getRegions(token) {
+  getRegions() {
     let httpHeaders = new HttpHeaders()
-      .set('Authentication', 'Bearer ' + token.access_token);
+      .set('Authorization', 'Bearer ' + this.cookieService.get("access_token"));
 
-    this.http.get('/regions', {
+    this.http.get('/tariffs/regions', {
       headers: httpHeaders
     }).subscribe(response => {
       console.log(response);

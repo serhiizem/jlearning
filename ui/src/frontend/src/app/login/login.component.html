@@ -27,7 +27,11 @@
               'button-if-form-ok': !loginForm.invalid}"
               type="submit">login
       </button>
+
     </form>
+    <button (click)="getRegions()">
+      getRegions
+    </button>
 
     <form [formGroup]="registerForm" (ngSubmit)="login(registerForm.value)"
           *ngIf="active === 'register'" autocomplete="off" novalidate>
