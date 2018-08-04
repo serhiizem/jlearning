@@ -14,6 +14,8 @@ import telecom.repository.SysUserRepository;
 import java.util.Optional;
 import java.util.Set;
 
+import static java.lang.String.format;
+
 @Slf4j
 @Service("userDetailsService")
 public class DomainUserDetailsService implements UserDetailsService {
@@ -29,6 +31,6 @@ public class DomainUserDetailsService implements UserDetailsService {
         return realUser.map(user -> {
             Set<GrantedAuthority> grantedAuthorities = user.getAuthorities();
             return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
-        }).orElseThrow(() -> new UsernameNotFoundException("用户" + lowcaseUsername + "不存在!"));
+        }).orElseThrow(() -> new UsernameNotFoundException(format("No user was found by the given username %s", lowcaseUsername)));
     }
 }

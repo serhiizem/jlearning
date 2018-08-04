@@ -15,7 +15,7 @@ import telecom.security.DomainUserDetailsService;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return new DomainUserDetailsService();
     }
 

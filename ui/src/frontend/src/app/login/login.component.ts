@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     params.set('grant_type', 'password');
     let headers = new HttpHeaders({
       'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'Authorization': 'Basic ' + btoa("android:android")
+      'Authorization': 'Basic ' + btoa("webapp:webapp")
     });
 
     this.http.post('/uaa/oauth/token', params.toString(), {

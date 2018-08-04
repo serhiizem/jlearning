@@ -1,7 +1,7 @@
 package telecom.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import telecom.domain.SysRole;
-import telecom.repository.support.WiselyRepository;
 
-public interface SysRoleRepository extends WiselyRepository<SysRole,Long> {
+public interface SysRoleRepository extends JpaRepository<SysRole,Long> {
 }
