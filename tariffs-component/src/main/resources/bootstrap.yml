@@ -24,6 +24,14 @@ eureka:
 security:
   oauth2:
     resource:
-      id: tariffs-service
-      user-info-uri: http://localhost:8080/uaa/user
-      prefer-token-info: false
+      jwt:
+        key-value:
+          -----BEGIN PUBLIC KEY-----
+          MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAphGeUMJRDLdrzLuyjJJn
+          ccoXBOVtU1Id0fvCFoRH0Cgl+Kuv3cx88xT23tJCOYbaCFTbNlaULb8PgDbYn9rx
+          0Wj1grkXJQbF/nE+3U+DM8UD9uSKM9VANjPlIBs2If30d+xWcP6YFe6TbbnBur2S
+          /Ggu4R/wF/7kvf3dGZklW1hWW4lrgRR5ZNg5WCgB8pPOTepsyRkyfMxnJd1AZdN/
+          RqKb5Aoc+395kAScC3xst1hZKnyLGiUBHsplKyAedDQ8iHoBFbseTOnk9xGhjfG9
+          vII8QtgFfYSY49G1AjWZDXHnYcVASwAd8SFt6WTZD5zGbDtVzIDF7gbpik2yvX1b
+          ewIDAQAB
+          -----END PUBLIC KEY-----

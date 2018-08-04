@@ -20,9 +20,9 @@ public class RevokeTokenEndpoint {
     @ResponseBody
     public String revokeToken(String access_token) {
         if (consumerTokenServices.revokeToken(access_token)) {
-            return "注销成功";
+            return "token was revoked";
         } else {
-            return "注销失败";
+            return "token was not found";
         }
     }
 }
