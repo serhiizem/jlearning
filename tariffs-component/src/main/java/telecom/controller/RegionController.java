@@ -21,7 +21,7 @@ public class RegionController {
     private final RegionService regionService;
 
     @GetMapping("/regions")
-    @PreAuthorize("hasAuthority('services-configuration')")
+    @PreAuthorize("hasAnyRole('CSR, ADMIN')")
     public List<Region> getAllRegions() {
         return regionService.findAll()
                 .stream().sorted(comparing(Region::getName))

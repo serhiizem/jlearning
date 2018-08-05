@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -62,16 +61,4 @@ public class SysUser extends AbstractAuditingEntity {
 
     @Transient
     private Set<GrantedAuthority> authorities = new HashSet<>();
-
-
-    public Set<GrantedAuthority> getAuthorities() {
-        Set<GrantedAuthority> userAuthotities = new HashSet<>();
-        for (SysRole role : this.roles) {
-            for (SysAuthority authority : role.getAuthorities()) {
-                userAuthotities.add(new SimpleGrantedAuthority(authority.getValue()));
-            }
-        }
-
-        return userAuthotities;
-    }
 }

@@ -1,14 +1,12 @@
-import {Subscription} from "rxjs/Subscription";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {CookieService} from "ngx-cookie-service";
+import {Component, OnInit} from "@angular/core";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {AuthService} from "../shared/auth.service";
 
 @Component({
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   active = 'login';
 
   loginForm: FormGroup;
@@ -20,53 +18,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   registerFormPassword: FormControl;
   emailAddress: FormControl;
 
-  subscription: Subscription;
-
-  constructor(private cookieService: CookieService, private http: HttpClient) {
-
+  constructor(private authService: AuthService) {
   }
 
   login(formValues) {
-    let params = new URLSearchParams();
-    params.set('username', formValues.username);
-    params.set('password', formValues.password);
-    params.set('grant_type', 'password');
-    let headers = new HttpHeaders({
-      'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-      'Authorization': 'Basic ' + btoa("webapp:webapp")
-    });
-
-    this.http.post('/uaa/oauth/token', params.toString(), {
-      headers: headers
-    })
-      .subscribe(
-        token => {
-          console.log(token);
-          this.saveToken(token);
-        },
-        err => {
-          console.log(err)
-        });
-  }
-
-  saveToken(token) {
-    let expireDate = new Date().getTime() + (1000 * token.expires_in);
-    this.cookieService.set("access_token", token.access_token, expireDate);
-  }
-
-  getRegions() {
-    let httpHeaders = new HttpHeaders()
-      .set('Authorization', 'Bearer ' + this.cookieService.get("access_token"));
-
-    this.http.get('/tariffs/regions', {
-      headers: httpHeaders
-    }).subscribe(response => {
-      console.log(response);
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.authService.doLogin(formValues.username, formValues.password)
   }
 
   ngOnInit(): void {

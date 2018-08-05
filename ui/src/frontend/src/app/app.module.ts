@@ -29,6 +29,12 @@ import {ImageCropperModule} from "ngx-image-cropper";
 import {LoginComponent} from "./login/login.component";
 import {CookieService} from "ngx-cookie-service";
 import {AuthenticationInterceptor} from "./shared/authentication-interceptor";
+import {TariffsComponent} from "./tariffs/tariffs.component";
+import {UploadPictureDialog} from "./tariffs/picture-upload/upload-picture-dialog";
+import {TariffsService} from "./shared/tariffs.service";
+import {SidebarComponent} from "./sidebar/sidebar.component";
+import {NavbarComponent} from "./navbar/navbar.component";
+import {AuthService} from "./shared/auth.service";
 
 @NgModule({
   imports: [
@@ -72,7 +78,11 @@ export class MaterialModule {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SidebarComponent,
+    NavbarComponent,
+    TariffsComponent,
+    UploadPictureDialog
   ],
   imports: [
     BrowserModule,
@@ -90,6 +100,8 @@ export class MaterialModule {
   ],
   providers: [
     CookieService,
+    TariffsService,
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
