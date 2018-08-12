@@ -2,12 +2,12 @@ PostgreSQL:
   restart: always
   image: sameersbn/postgresql:9.6-2
   ports:
-    - "5433:5433"
+    - "5432:5432"
   environment:
     - DEBUG=false
 
-    - DB_USER=wang
-    - DB_PASS=yunfei
-    - DB_NAME=order
+    - DB_USER=postgres
+    - DB_PASS=postgres
+    - DB_NAME=users
   volumes:
     - /srv/docker/postgresql:/var/lib/postgresql:Z

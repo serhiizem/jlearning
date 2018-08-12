@@ -5,4 +5,3 @@ include 'auth-server'
 include 'resource'
 include 'tariffs-component'
 include 'discovery-server'
-

@@ -1,9 +1,6 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import 'rxjs/add/operator/finally';
 import {TariffsService} from "../shared/tariffs.service";
-import {HttpClient} from "@angular/common/http";
-import {MatDialog} from "@angular/material";
-import {UploadPictureDialog} from "./picture-upload/upload-picture-dialog";
 
 @Component({
   templateUrl: 'tariffs.component.html',
@@ -14,25 +11,21 @@ export class TariffsComponent implements OnInit {
   regionsToSave: any[] = [];
   regionsToAdd: any[] = [];
   regions: any[] = [];
+  tariffs: any[] = [];
   imgSrc: any = {};
   imageCropStep: number = 0;
   currentTariff: any;
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
-  constructor(private http: HttpClient,
-              private tariffsService: TariffsService,
-              public dialog: MatDialog) {
-  }
-
-  uploadPicture(): void {
-    this.fileInput.nativeElement.click()
-  }
-
-  imageLoaded() {
+  constructor(private tariffsService: TariffsService) {
   }
 
   ngOnInit() {
+    this.tariffsService.getAllTariffs().subscribe(res => {
+      this.tariffs = res as any[];
+    });
+
     this.tariffsService.getAllRegions().subscribe(res => {
       this.regions = res as any[];
       for (let i = 0; i < this.regions.length; i++) {
@@ -46,6 +39,13 @@ export class TariffsComponent implements OnInit {
     }, err => {
       console.log(err)
     });
+  }
+
+  uploadPicture(): void {
+    this.fileInput.nativeElement.click()
+  }
+
+  imageLoaded() {
   }
 
   toggle = function (item, list) {

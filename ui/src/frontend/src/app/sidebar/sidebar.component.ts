@@ -1,12 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, isDevMode, OnInit} from '@angular/core';
 import {AuthService} from "../shared/auth.service";
 import {HttpClient} from "@angular/common/http";
 
 declare interface RouteInfo {
   path: string;
   title: string;
-  icon?: string;
-  class?: string;
 }
 
 export const ROUTES: RouteInfo[] = [
@@ -22,12 +20,22 @@ export const ROUTES: RouteInfo[] = [
 })
 export class SidebarComponent implements OnInit {
 
+  private authenticated: boolean = false;
   menuItems: any[];
 
-  constructor(private authService: AuthService, private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.menuItems = ROUTES;
+
+    if (isDevMode()) {
+      this.authenticated = true;
+    } else {
+      this.authService._authenticated$.subscribe(
+        isAuthenticated => {
+          this.authenticated = isAuthenticated;
+        })
+    }
   }
 }

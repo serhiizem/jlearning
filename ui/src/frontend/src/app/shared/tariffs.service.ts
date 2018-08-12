@@ -20,4 +20,13 @@ export class TariffsService {
       headers: httpHeaders
     }).map(res => res as any[]);
   }
+
+  getAllTariffs(): Observable<any[]> {
+    let httpHeaders = new HttpHeaders()
+      .set('Authorization', 'Bearer ' + this.cookieService.get("access_token"));
+
+    return this.http.get('/tariffs/available-tariffs', {
+      headers: httpHeaders
+    }).map(res => res as any[]);
+  }
 }
