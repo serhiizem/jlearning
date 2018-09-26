@@ -19,6 +19,9 @@ import {
   MatNativeDateModule,
   MatSelectModule,
   MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
+  MatProgressSpinnerModule,
   MatTabsModule,
   MatToolbarModule
 } from "@angular/material";
@@ -50,6 +53,9 @@ import {AuthService} from "./shared/auth.service";
     MatDatepickerModule,
     MatNativeDateModule,
     MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
     CdkTableModule,
     MatCheckboxModule,
     MatDialogModule

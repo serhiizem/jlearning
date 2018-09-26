@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import 'rxjs/add/operator/finally';
 import {TariffsService} from "../shared/tariffs.service";
+import {TariffsDataSource} from "../shared/tariffs.datasource";
 
 @Component({
   templateUrl: 'tariffs.component.html',
@@ -21,10 +22,12 @@ export class TariffsComponent implements OnInit {
   constructor(private tariffsService: TariffsService) {
   }
 
+  dataSource: TariffsDataSource;
+  displayedColumns = ['name', 'status', 'creationDate', 'isCorporate'];
+
   ngOnInit() {
-    this.tariffsService.getAllTariffs().subscribe(res => {
-      this.tariffs = res as any[];
-    });
+    this.dataSource = new TariffsDataSource(this.tariffsService);
+    this.dataSource.loadTariffs();
 
     this.tariffsService.getAllRegions().subscribe(res => {
       this.regions = res as any[];
