@@ -1,13 +1,48 @@
-PostgreSQL:
-  restart: always
-  image: sameersbn/postgresql:9.6-2
-  ports:
-    - "5432:5432"
-  environment:
-    - DEBUG=false
+version: '3.4'
 
-    - DB_USER=postgres
-    - DB_PASS=postgres
-    - DB_NAME=users
-  volumes:
-    - /srv/docker/postgresql:/var/lib/postgresql:Z
+services:
+  discovery-server:
+    build: ./discovery-server
+    ports:
+      - '8761:8761'
+    networks:
+      - app-network
+  postgres:
+    image: 'postgres:9.6-alpine'
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_DB: 'users'
+    ports:
+      - '5432:5432'
+    networks:
+      - app-network
+  auth-server:
+    build: ./auth-server
+    ports:
+      - '9999:9999'
+    depends_on:
+      - postgres
+      - discovery-server
+    networks:
+      - app-network
+  tariffs-component:
+    build: ./tariffs-component
+    ports:
+      - '8010:8010'
+    depends_on:
+      - discovery-server
+    networks:
+      - app-network
+  ui:
+    build: ./ui
+    ports:
+      - '8080:8080'
+    depends_on:
+      - discovery-server
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
