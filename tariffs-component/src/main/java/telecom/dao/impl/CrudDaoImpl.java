@@ -4,20 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.*;
 import telecom.dao.CrudDao;
-import telecom.dao.PersistentEntity;
-
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import telecom.model.DomainEntity;
 
 @Slf4j
 @RequiredArgsConstructor
-public abstract class CrudDaoImpl<T extends PersistentEntity>
+public abstract class CrudDaoImpl<T extends DomainEntity>
         implements CrudDao<T> {
 
     private final SessionFactory sessionFactory;

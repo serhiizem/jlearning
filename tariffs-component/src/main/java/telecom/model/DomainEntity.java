@@ -2,18 +2,30 @@ package telecom.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.SneakyThrows;
-import telecom.dao.PersistentEntity;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.io.Serializable;
-import java.sql.ResultSet;
+
 
 @Data
 @MappedSuperclass
 @NoArgsConstructor
-public class DomainEntity implements PersistentEntity {
+@GenericGenerator(
+        name = "ID_GENERATOR",
+        strategy = "enhanced-sequence",
+        parameters = {
+                @Parameter(
+                        name = "sequence_name",
+                        value = "TARIFFS_SEQUENCE"
+                ),
+                @Parameter(
+                        name = "initial_value",
+                        value = "1000"
+                )
+        })
+public class DomainEntity {
     @Id
     private Long id;
 }

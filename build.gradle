@@ -3,19 +3,14 @@ version '1.0-SNAPSHOT'
 
 buildscript {
     ext {
-        springBootVersion = '1.5.7.RELEASE'
-        jqueryVersion = '2.2.4'
-        bootstrapVersion = '3.3.7-1'
+        springBootPlugin = 'org.springframework.boot:spring-boot-gradle-plugin'
+        springBootVersion = '2.0.2.RELEASE'
     }
     repositories {
         mavenCentral()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
     }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath('gradle.plugin.com.palantir.gradle.docker:gradle-docker:0.13.0')
+        classpath("${springBootPlugin}:${springBootVersion}")
     }
 }
 
@@ -25,7 +20,7 @@ allprojects {
     apply plugin: 'idea'
 
     task wrapper(type: Wrapper) {
-        gradleVersion = '3.0'
+        gradleVersion = '4.0'
     }
 }
 
@@ -56,6 +51,7 @@ subprojects {
     dependencies {
         compile 'org.projectlombok:lombok:1.16.14'
         compile 'org.springframework.boot:spring-boot-devtools'
+        testCompile 'org.springframework.boot:spring-boot-starter-test'
     }
 
     task cleanOut(type: Delete) {
