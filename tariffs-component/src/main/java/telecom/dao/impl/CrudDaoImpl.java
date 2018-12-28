@@ -9,8 +9,7 @@ import telecom.model.DomainEntity;
 
 @Slf4j
 @RequiredArgsConstructor
-public abstract class CrudDaoImpl<T extends DomainEntity>
-        implements CrudDao<T> {
+public abstract class CrudDaoImpl<T extends DomainEntity> implements CrudDao<T> {
 
     private final SessionFactory sessionFactory;
 

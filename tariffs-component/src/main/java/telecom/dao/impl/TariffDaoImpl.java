@@ -1,20 +1,21 @@
 package telecom.dao.impl;
 
-import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import telecom.dao.TariffDao;
 import telecom.model.Tariff;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 import static telecom.util.HibernateUtils.listAndCast;
 
 @Repository
-public class TariffDaoImpl extends CrudDaoImpl<Tariff>
-        implements TariffDao {
+public class TariffDaoImpl extends CrudDaoImpl<Tariff> implements TariffDao {
 
+    @Autowired
     public TariffDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
@@ -35,7 +36,7 @@ public class TariffDaoImpl extends CrudDaoImpl<Tariff>
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Tariff> findAll() {
         Query regionsQuery = getSession().createQuery("from Tariff t");
         return listAndCast(regionsQuery);

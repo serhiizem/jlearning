@@ -1,8 +1,9 @@
 package telecom.config;
 
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -10,9 +11,7 @@ import javax.persistence.EntityManagerFactory;
 public class HibernateConfig {
 
     @Bean
-    public HibernateJpaSessionFactoryBean sessionFactory(EntityManagerFactory emf) {
-        HibernateJpaSessionFactoryBean fact = new HibernateJpaSessionFactoryBean();
-        fact.setEntityManagerFactory(emf);
-        return fact;
+    public SessionFactory sessionFactory(@Qualifier("entityManagerFactory") EntityManagerFactory emf) {
+        return emf.unwrap(SessionFactory.class);
     }
 }
