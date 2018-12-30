@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 public class TariffDaoTest extends AbstractDaoTest {
 
     @Test
-    public void should() {
+    public void test() {
 
     }
 }

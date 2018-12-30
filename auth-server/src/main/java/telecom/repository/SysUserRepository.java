@@ -5,6 +5,6 @@ import telecom.domain.SysUser;
 
 import java.util.Optional;
 
-public interface SysUserRepository extends JpaRepository<SysUser,Long> {
+public interface SysUserRepository extends JpaRepository<SysUser, Long> {
     Optional<SysUser> findOneWithRolesByUsername(String username);
 }

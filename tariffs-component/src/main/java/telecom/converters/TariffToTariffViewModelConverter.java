@@ -1,6 +1,7 @@
 package telecom.converters;
 
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 import telecom.controller.view_model.TariffViewModel;
 import telecom.model.Tariff;
@@ -12,7 +13,7 @@ import static telecom.util.Constants.COMMON_DATETIME_FORMAT;
 public class TariffToTariffViewModelConverter implements Converter<Tariff, TariffViewModel> {
 
     @Override
-    public TariffViewModel convert(Tariff source) {
+    public TariffViewModel convert(@NonNull Tariff source) {
         TariffViewModel tariffViewModel = new TariffViewModel();
         tariffViewModel.setName(source.getName());
         tariffViewModel.setCorporate(source.isCorporate());
