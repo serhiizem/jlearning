@@ -1,8 +1,6 @@
 package telecom.dao.impl;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import telecom.dao.RegionDao;
 import telecom.model.Region;
@@ -14,11 +12,6 @@ import static telecom.util.HibernateUtils.listAndCast;
 
 @Repository
 public class RegionDaoImpl extends CrudDaoImpl<Region> implements RegionDao {
-
-    @Autowired
-    public RegionDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory);
-    }
 
     @Override
     public Region save(Region entity) {

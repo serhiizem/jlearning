@@ -1,22 +1,28 @@
+server:
+  port: 8010
+
 spring:
-  jpa:
-    properties:
-      hibernate:
-        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres
-    driver-class-name: org.postgresql.Driver
-    tomcat:
-      max-active: 8
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:dev}
   application:
     name: tariffs-service
 
-server:
-  port: 8010
+  jpa:
+    properties:
+      hibernate:
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+        temp.use_jdbc_metadata_defaults: false
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres
+    driver-class-name: org.postgresql.Driver
+    tomcat:
+      max-active: 8
 
-management.security.enabled: false
+management:
+  endpoints:
+    web:
+      expose: '*'
 
 eureka:
   client:

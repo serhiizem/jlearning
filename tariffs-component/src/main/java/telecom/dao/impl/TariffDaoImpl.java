@@ -1,8 +1,6 @@
 package telecom.dao.impl;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import telecom.dao.TariffDao;
@@ -14,11 +12,6 @@ import static telecom.util.HibernateUtils.listAndCast;
 
 @Repository
 public class TariffDaoImpl extends CrudDaoImpl<Tariff> implements TariffDao {
-
-    @Autowired
-    public TariffDaoImpl(SessionFactory sessionFactory) {
-        super(sessionFactory);
-    }
 
     @Override
     public Tariff save(Tariff entity) {

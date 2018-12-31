@@ -4,7 +4,7 @@ version '1.0-SNAPSHOT'
 buildscript {
     ext {
         springBootPlugin = 'org.springframework.boot:spring-boot-gradle-plugin'
-        springBootVersion = '2.0.2.RELEASE'
+        springBootVersion = '2.0.5.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -36,8 +36,8 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Dalston.SR2'
-            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Dalston.SR2'
+            mavenBom 'org.springframework.cloud:spring-cloud-starter-parent:Finchley.M9'
+            mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.M9'
             mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
         }
     }
@@ -52,8 +52,7 @@ subprojects {
     dependencies {
         compile 'org.projectlombok:lombok:1.16.14'
         compile 'org.springframework.boot:spring-boot-devtools'
-        testCompile "org.junit.jupiter:junit-jupiter-engine:5.3.2"
-        testCompile 'org.springframework.boot:spring-boot-starter-test'
+
     }
 
     task cleanOut(type: Delete) {

@@ -22,8 +22,6 @@ zuul:
   add-proxy-headers: true
 
 security:
-  ignored:
-    - "*.bundle.*"
   oauth2:
     client:
       access-token-uri: http://localhost:8080/uaa/oauth/token
