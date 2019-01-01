@@ -5,10 +5,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Repository;
 import telecom.dao.CrudDao;
 import telecom.model.DomainEntity;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 @Slf4j

@@ -24,7 +24,7 @@ public class RegionController {
     @PreAuthorize("hasAnyRole('CSR, ADMIN')")
     public List<Region> getAllRegions() {
         return regionService.findAll()
-                .stream().sorted(comparing(Region::getName))
+                .stream().sorted(comparing(Region::getId))
                 .collect(toList());
     }
 }

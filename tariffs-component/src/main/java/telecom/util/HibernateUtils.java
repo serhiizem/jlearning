@@ -1,6 +1,6 @@
 package telecom.util;
 
-import org.hibernate.Query;
+import org.hibernate.query.Query;
 
 import java.util.List;
 
