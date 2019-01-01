@@ -1,8 +1,3 @@
-CREATE TABLE "regions" (
-  id SERIAL PRIMARY KEY,
-  name VARCHAR(50) DEFAULT NULL
-);
-
 INSERT INTO regions (id,name) VALUES (1,'DN');
 INSERT INTO regions (id,name) VALUES (2,'Wigtownshire');
 INSERT INTO regions (id,name) VALUES (3,'Kon');
