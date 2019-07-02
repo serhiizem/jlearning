@@ -1,4 +1,4 @@
-package jlearning.domain;
+package jlearning.auth.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -1,4 +1,4 @@
-package telecom;
+package jlearning.words;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ import jlearning.words.service.impl.FileServiceImpl;
 @Configuration
 @ComponentScan(
         value = {
-                "telecom.service"
+                "jlearning.words.service"
         },
         excludeFilters = {
                 @ComponentScan.Filter(

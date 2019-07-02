@@ -1,11 +1,11 @@
-package jlearning.jwt.annotations;
+package jlearning.words.service.validation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+@Target(value = ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
-public @interface InjectUserRef {
+public @interface Validate {
 }

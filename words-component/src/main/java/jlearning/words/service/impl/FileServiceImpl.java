@@ -1,4 +1,4 @@
-package telecom.service.impl;
+package jlearning.words.service.impl;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import telecom.service.FileService;
+import jlearning.words.service.FileService;
 
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;

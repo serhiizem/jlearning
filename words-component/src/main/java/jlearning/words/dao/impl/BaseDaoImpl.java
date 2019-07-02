@@ -1,11 +1,11 @@
-package telecom.dao.impl;
+package jlearning.words.dao.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import telecom.dao.BaseDao;
-import telecom.dao.domain_model.DomainEntity;
+import jlearning.words.dao.BaseDao;
+import jlearning.words.dao.domain_model.DomainEntity;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

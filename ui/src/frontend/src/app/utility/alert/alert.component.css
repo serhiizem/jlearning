@@ -1,12 +1,31 @@
 .alert-danger {
-background-color: #f44336; /* Red */
+  background-color: #f44336; /* Red */
 }
+
 .alert-success {
-background-color: #36f456;
+  background-color: #056312;
 }
-.alert{
-padding: 20px;
-color: white;
-margin-bottom: 15px;
-text-align: center;
+
+.alert {
+  padding: 20px;
+  position: absolute;
+  left: 40%;
+  top: 2%;
+  width: 20%;
+  height: 7%;
+  color: white;
+  margin-bottom: 15px;
+  text-align: center;
+  z-index: 11;
+  transition: visibility 0s, opacity 0.5s linear;
+}
+
+.alert-hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.alert-shown {
+  visibility: visible;
+  opacity: 1;
 }

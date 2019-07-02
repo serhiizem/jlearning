@@ -1,15 +1,15 @@
-package telecom.service.impl;
+package jlearning.words.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import telecom.dao.WordsDao;
-import telecom.dao.domain_model.WordDto;
-import telecom.service.DictionaryService;
-import telecom.service.model.Word;
-import telecom.service.model.WordGroup;
-import telecom.service.validation.Validate;
-import telecom.service.validation.ValidatorTypes;
-import telecom.service.validation.validators.WordValidator;
+import jlearning.words.dao.WordsDao;
+import jlearning.words.dao.domain_model.WordDto;
+import jlearning.words.service.DictionaryService;
+import jlearning.words.service.model.Word;
+import jlearning.words.service.model.WordGroup;
+import jlearning.words.service.validation.Validate;
+import jlearning.words.service.validation.ValidatorTypes;
+import jlearning.words.service.validation.validators.WordValidator;
 
 import java.util.Comparator;
 import java.util.List;

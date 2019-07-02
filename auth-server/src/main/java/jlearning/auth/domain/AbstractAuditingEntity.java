@@ -1,4 +1,4 @@
-package jlearning.domain;
+package jlearning.auth.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

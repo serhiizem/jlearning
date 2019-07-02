@@ -11,7 +11,7 @@
                         value = "1000"
                 )
         })
-package telecom.dao;
+package jlearning.words.dao;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;

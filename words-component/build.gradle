@@ -6,7 +6,5 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
     compile "org.postgresql:postgresql:9.4-1206-jdbc42"
     compile "com.amazonaws:aws-java-sdk:1.11.340"
-
-    testCompile "org.junit.jupiter:junit-jupiter-engine:5.3.2"
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    compile project(':jwt-starter')
 }

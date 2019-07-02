@@ -1,4 +1,4 @@
-package telecom.service;
+package jlearning.words.service;
 
 import java.util.List;
 

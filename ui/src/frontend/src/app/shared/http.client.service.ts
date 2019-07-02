@@ -1,35 +1,47 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import {CookieService} from "ngx-cookie-service";
-import {LoaderService} from "./loader.service";
-import {Subject} from "rxjs/Subject";
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class HttpClientService {
 
   constructor(private cookieService: CookieService,
-              private http: HttpClient,
-              private loaderService: LoaderService) {
+              private http: HttpClient) {
   }
 
-  // get<T>(url: string, resultState:  <T> ) {
-  //   let httpHeaders = new HttpHeaders()
-  //     .set('Authorization', 'Bearer ' + this.cookieService.get("access_token"));
-  //
-  //   this.loaderService.show();
-  //   this.http.get<T>(url, {
-  //     headers: httpHeaders
-  //   }).map(res => {
-  //     resultState.next(res);
-  //     this.loaderService.hide();
-  //   });
-  // }
+  get<T>(url: string, params?: any): Observable<T> {
+    let authHeaders = this.getAuthHeaders();
+    let httpParams = this.extractHttpParams(params);
 
-  post(url: string, body: Object): void {
-    let httpHeaders = new HttpHeaders()
+    return this.http.get<T>(url, {
+      headers: authHeaders,
+      params: httpParams
+    });
+  };
+
+  post(url: string, body: Object): Observable<Object> {
+    let authHeaders = this.getAuthHeaders();
+    return this.http.post(url, body, {headers: authHeaders});
+  }
+
+  getAuthHeaders(): HttpHeaders {
+    return new HttpHeaders()
       .set('Authorization', 'Bearer ' + this.cookieService.get("access_token"));
-    this.http.post(url, body, {headers: httpHeaders}).subscribe();
+  }
+
+  extractHttpParams(params?: any): HttpParams {
+    let httpParams = new HttpParams();
+    if (params) {
+      for (let attr in params) {
+        if (Object.prototype.hasOwnProperty.call(params, attr)) {
+          let val = params[attr];
+          httpParams.set(attr, val);
+        }
+      }
+    }
+    return httpParams;
   }
 }

@@ -1,4 +1,4 @@
-package telecom;
+package jlearning.words;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -18,8 +18,8 @@ import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static telecom.Mocks.MOCK_USER_REFERENCE;
-import static telecom.Mocks.MOCK_USER_WORD_DTOS;
+import static jlearning.words.Mocks.MOCK_USER_REFERENCE;
+import static jlearning.words.Mocks.MOCK_USER_WORD_DTOS;
 
 @Slf4j
 @RunWith(SpringRunner.class)

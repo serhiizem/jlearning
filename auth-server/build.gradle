@@ -7,5 +7,6 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.hibernate:hibernate-envers"
     compile "com.google.guava:guava"
+    compile project(':jwt-starter')
     testCompile "org.apache.httpcomponents:httpclient"
 }

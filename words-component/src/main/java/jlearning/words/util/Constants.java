@@ -1,4 +1,4 @@
-package telecom.util;
+package jlearning.words.util;
 
 import org.springframework.http.ResponseEntity;
 

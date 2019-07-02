@@ -10,6 +10,7 @@ import {AuthService} from "../shared/auth.service";
 export class NavbarComponent implements OnInit {
 
   private authenticated = false;
+  private username: string;
 
   constructor(private http: HttpClient, private authService: AuthService) {
   }
@@ -23,6 +24,9 @@ export class NavbarComponent implements OnInit {
           this.authenticated = isAuthenticated;
         })
     }
+    this.authService.userState.subscribe(userState => {
+      this.username = userState.username;
+    })
   }
 
   logout() {

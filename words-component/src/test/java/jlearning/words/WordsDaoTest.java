@@ -1,4 +1,4 @@
-package telecom;
+package jlearning.words;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import jlearning.words.dao.domain_model.WordDto;
 
 import java.util.List;
 
-import static telecom.Mocks.MOCK_USER_REFERENCE;
+import static jlearning.words.Mocks.MOCK_USER_REFERENCE;
 
 //@DatabaseSetup("user_words_data.xml")
 @ContextConfiguration(classes = WordsDaoTestConfig.class)

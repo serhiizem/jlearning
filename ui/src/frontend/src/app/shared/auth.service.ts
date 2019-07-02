@@ -7,17 +7,31 @@ import {Observable} from "rxjs/Observable";
 import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
 import * as decode from 'jwt-decode';
+import {LoaderService} from "./loader.service";
+
+export class User {
+  id: string = '';
+  username: string = '';
+
+  constructor(id: string, username: string) {
+    this.id = id;
+    this.username = username;
+  }
+}
 
 @Injectable()
 export class AuthService {
 
   private _authenticated = new Subject<boolean>();
+  private userSubject = new Subject<User>();
 
   _authenticated$ = this._authenticated.asObservable();
+  userState = this.userSubject.asObservable();
 
   constructor(private http: HttpClient,
               private cookieService: CookieService,
-              private router: Router) {
+              private router: Router,
+              private loaderService: LoaderService) {
   }
 
   doLogin(username: string, password: string) {
@@ -30,12 +44,16 @@ export class AuthService {
       'Authorization': 'Basic ' + btoa("webapp:webapp")
     });
 
+    this.loaderService.show();
     this.http.post('/uaa/oauth/token', params.toString(), {
       headers: headers
     })
       .subscribe(token => {
           this.saveToken(token);
           this.setAuthenticated(true);
+          let user: User = this.getUserFromToken(token);
+          this.userSubject.next(user);
+          this.loaderService.hide();
           this.doRedirectBasedOnToken(token);
         },
         err => {
@@ -51,13 +69,21 @@ export class AuthService {
   private doRedirectBasedOnToken(token) {
     let decodedToken = decode(token.access_token);
     let authorities = decodedToken.authorities;
-    if (authorities.indexOf("ROLE_CSR") > -1) {
-      this.router.navigate(['/tariffs'])
+    if (this.userAdminOrStudent(authorities)) {
+      this.router.navigate(['/words'])
     }
+  }
+
+  private userAdminOrStudent(authorities): boolean {
+    return authorities.indexOf("ROLE_ADMIN") > -1 || authorities.indexOf("ROLE_STUDENT") > -1;
   }
 
   setAuthenticated(authenticated: boolean) {
     this._authenticated.next(authenticated);
+  }
+
+  getUserFromToken(token): User {
+    return new User(token.user_id, token.username);
   }
 
   handleError(error: Response) {

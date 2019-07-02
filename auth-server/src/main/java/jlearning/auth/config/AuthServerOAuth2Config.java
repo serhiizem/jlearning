@@ -1,4 +1,4 @@
-package jlearning.config;
+package jlearning.auth.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

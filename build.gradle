@@ -1,4 +1,4 @@
-group 'telecom'
+group 'jlearning'
 version '1.0-SNAPSHOT'
 
 buildscript {
@@ -53,6 +53,8 @@ subprojects {
         compile 'org.projectlombok:lombok:1.16.14'
         compile 'org.springframework.boot:spring-boot-devtools'
 
+        testCompile "org.junit.jupiter:junit-jupiter-engine:5.3.2"
+        testCompile "org.springframework.boot:spring-boot-starter-test"
     }
 
     task cleanOut(type: Delete) {

@@ -1,6 +1,6 @@
-package telecom.dao;
+package jlearning.words.dao;
 
-import telecom.dao.domain_model.WordDto;
+import jlearning.words.dao.domain_model.WordDto;
 
 import java.util.List;
 

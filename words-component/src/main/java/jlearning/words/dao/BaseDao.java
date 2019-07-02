@@ -1,4 +1,4 @@
-package telecom.dao;
+package jlearning.words.dao;
 
 public interface BaseDao<T> {
     Long save(T entity);

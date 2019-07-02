@@ -1,94 +1,98 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import 'rxjs/add/operator/finally';
-import {TariffsService} from "../shared/tariffs.service";
-import {TariffsDataSource} from "../shared/tariffs.datasource";
+import {WordsService} from "../shared/words.service";
+import {LoaderService} from "../shared/loader.service";
+import {Observable} from "rxjs/Observable";
+import {map} from "rxjs/operators";
+import {WordGroup} from "../shared/types";
+import {FormBuilder, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
+import {AlertService} from "../shared/alert.service";
+import {VERB_ADDED} from "../shared/messages";
+import {AuthService} from "../shared/auth.service";
+
+export class TranslatableWord {
+  value: string = '';
+  translations: string[] = [];
+}
 
 @Component({
-  templateUrl: 'tariffs.component.html',
-  styleUrls: ['tariffs.component.css']
+  templateUrl: 'words.component.html',
+  styleUrls: ['words.component.css']
 })
-export class TariffsComponent implements OnInit {
+export class WordsComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
-  regionsToSave: any[] = [];
-  regionsToAdd: any[] = [];
-  regions: any[] = [];
-  tariffs: any[] = [];
   imgSrc: any = {};
   imageCropStep: number = 0;
-  currentTariff: any;
   imageChangedEvent: any = '';
   croppedImage: any = '';
 
-  constructor(private tariffsService: TariffsService) {
+  verbInputForm: FormGroup;
+
+  translatableWord: TranslatableWord = new TranslatableWord();
+  translation: string = '';
+
+  wordGroups: Observable<WordGroup[]>;
+
+  constructor(private wordsService: WordsService,
+              private authService: AuthService,
+              private loaderService: LoaderService,
+              private alertService: AlertService,
+              private formBuilder: FormBuilder) {
   }
 
-  dataSource: TariffsDataSource;
-  displayedColumns = ['name', 'status', 'creationDate', 'isCorporate'];
-
   ngOnInit() {
-    this.dataSource = new TariffsDataSource(this.tariffsService);
-    this.dataSource.loadTariffs();
+    this.wordGroups = this.wordsService.wordGroupsState
+      .pipe(
+        map(value => value)
+      );
 
-    this.tariffsService.getAllRegions().subscribe(res => {
-      this.regions = res as any[];
-      for (let i = 0; i < this.regions.length; i++) {
-        this.regionsToAdd.push({
-          id: '',
-          price: 0,
-          region: this.regions[i],
-          tariff: {}
-        });
-      }
-    }, err => {
-      console.log(err)
+    this.loaderService.show();
+    this.wordsService.loadUserVerbs().subscribe(() => {
+      this.loaderService.hide();
+    });
+    this.createVerbInputForm();
+  }
+
+  private createVerbInputForm(): void {
+    this.verbInputForm = this.formBuilder.group({
+      word: ['', Validators.required],
+      translations: ['', Validators.required]
     });
   }
 
+  addVerb(formDirective: FormGroupDirective): void {
+    this.loaderService.show();
+    this.wordsService.addVerb(this.translatableWord).subscribe(() => {
+      this.wordsService.loadUserVerbs().subscribe(() => {
+        this.resetForm(formDirective);
+        this.loaderService.hide();
+        this.alertService.success(VERB_ADDED);
+      });
+    });
+  }
+
+  private resetForm(formDirective: FormGroupDirective): void {
+    this.translatableWord.value = ''; // word being translated
+    this.translatableWord.translations = []; // all provided translations
+    this.translation = ''; //translation that is currently present in input
+    formDirective.resetForm();
+    this.verbInputForm.reset();
+  }
+
+  addTranslation(translationOption: string) {
+    this.translatableWord.translations.push(translationOption);
+  }
+
+  addControlsToWord(wordId: string) {
+    console.log(wordId);
+  }
+
   uploadPicture(): void {
-    this.fileInput.nativeElement.click()
+    this.fileInput.nativeElement.click();
   }
 
   imageLoaded() {
   }
-
-  toggle = function (item, list) {
-    let idx = -1;
-    for (let i = 0; i < list.length; i++) {
-      if (list[i] == item)
-        idx = i;
-    }
-    if (idx > -1) {
-      list.splice(idx, 1);
-    }
-    else {
-      list.push(item);
-    }
-  };
-
-  exists = function (item, list) {
-    if (list != undefined) {
-      let idx = -1;
-      for (let i = 0; i < list.length; i++) {
-        if (list[i] == item)
-          idx = i;
-      }
-      return idx > -1;
-    }
-    return false;
-  };
-
-  checkPrice = function (r, list) {
-    if (r.price < 0) {
-      r.price = 0;
-    }
-    if (r.price > 2000) {
-      r.price = 2000;
-    }
-    for (let i = 0; i < list.length; i++) {
-      if (list[i].region.id == r.region.id)
-        list[i].price = r.price;
-    }
-  };
 
   fileChangeEvent(event: any): void {
     this.imageChangedEvent = event;

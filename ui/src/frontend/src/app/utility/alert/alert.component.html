@@ -1,0 +1,11 @@
+<div class="alert"
+  [ngClass]="{
+             'alert-shown': show == true,
+             'alert-hidden': show == false,
+             'alert-success': type === 'success',
+             'alert-danger': type === 'error'}"
+>
+  {{message}}
+</div>
+<div *ngIf="show" class="overlay" (click)="hide()">
+</div>

@@ -1,4 +1,4 @@
-package telecom;
+package jlearning.words;
 
 import jlearning.words.dao.domain_model.WordDto;
 

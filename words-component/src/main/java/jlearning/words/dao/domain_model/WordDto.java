@@ -1,4 +1,4 @@
-package telecom.dao.domain_model;
+package jlearning.words.dao.domain_model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

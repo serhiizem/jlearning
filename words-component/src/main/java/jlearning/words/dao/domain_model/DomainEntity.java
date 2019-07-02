@@ -1,9 +1,7 @@
-package telecom.dao.domain_model;
+package jlearning.words.dao.domain_model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

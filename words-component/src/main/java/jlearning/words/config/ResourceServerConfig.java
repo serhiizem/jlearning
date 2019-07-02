@@ -1,4 +1,4 @@
-package telecom.config;
+package jlearning.words.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

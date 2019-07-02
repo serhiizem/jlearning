@@ -26,8 +26,8 @@ services:
       - discovery-server
     networks:
       - app-network
-  tariffs-component:
-    build: ./tariffs-component
+  words-component:
+    build: ./words-component
     ports:
       - '8010:8010'
     depends_on:

@@ -1,7 +1,7 @@
-package telecom.service;
+package jlearning.words.service;
 
-import telecom.service.model.Word;
-import telecom.service.model.WordGroup;
+import jlearning.words.service.model.Word;
+import jlearning.words.service.model.WordGroup;
 
 import java.util.List;
 

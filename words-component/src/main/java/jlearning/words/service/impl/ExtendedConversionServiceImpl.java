@@ -1,9 +1,9 @@
-package telecom.service.impl;
+package jlearning.words.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-import telecom.service.ExtendedConversionService;
+import jlearning.words.service.ExtendedConversionService;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,4 +1,4 @@
-package telecom.controller;
+package jlearning.words.controller;
 
 import jlearning.jwt.annotations.InjectUserRef;
 import lombok.RequiredArgsConstructor;
@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import telecom.service.DictionaryService;
-import telecom.service.model.Word;
-import telecom.service.model.WordGroup;
+import jlearning.words.service.DictionaryService;
+import jlearning.words.service.model.Word;
+import jlearning.words.service.model.WordGroup;
 
 import java.util.List;
 
-import static telecom.util.Constants.OK;
+import static jlearning.words.util.Constants.OK;
 
 @Slf4j
 @RestController

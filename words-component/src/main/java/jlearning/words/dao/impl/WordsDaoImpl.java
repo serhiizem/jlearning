@@ -1,13 +1,13 @@
-package telecom.dao.impl;
+package jlearning.words.dao.impl;
 
 import org.springframework.stereotype.Repository;
-import telecom.dao.WordsDao;
-import telecom.dao.domain_model.WordDto;
+import jlearning.words.dao.WordsDao;
+import jlearning.words.dao.domain_model.WordDto;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 
-import static telecom.util.HibernateUtils.listAndCast;
+import static jlearning.words.util.HibernateUtils.listAndCast;
 
 @Repository
 public class WordsDaoImpl extends BaseDaoImpl<WordDto> implements WordsDao {

@@ -1,4 +1,4 @@
-package jlearning.endpoint;
+package jlearning.auth.endpoint;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;

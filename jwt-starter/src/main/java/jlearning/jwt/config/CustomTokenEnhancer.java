@@ -1,6 +1,6 @@
-package jlearning.config;
+package jlearning.jwt.config;
 
-import jlearning.model.SecurityUser;
+import jlearning.jwt.model.SecurityUser;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -11,6 +11,8 @@ import java.util.Map;
 
 public class CustomTokenEnhancer implements TokenEnhancer {
 
+    static final String USER_ID_CUSTOM_JWT_PARAM = "user_id";
+
     /**
      * Adds ID of the logged in user to the claims of JWT
      */
@@ -20,7 +22,7 @@ public class CustomTokenEnhancer implements TokenEnhancer {
         DefaultOAuth2AccessToken oauthToken = (DefaultOAuth2AccessToken) accessToken;
         SecurityUser user = (SecurityUser) authentication.getPrincipal();
         Map<String, Object> additionalInfo = new HashMap<>();
-        additionalInfo.put("user_id", user.getId());
+        additionalInfo.put(USER_ID_CUSTOM_JWT_PARAM, user.getId().toString());
         additionalInfo.put("username", user.getUsername());
         oauthToken.setAdditionalInformation(additionalInfo);
 

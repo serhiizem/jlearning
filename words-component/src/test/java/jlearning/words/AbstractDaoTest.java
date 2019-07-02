@@ -1,4 +1,4 @@
-package telecom;
+package jlearning.words;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

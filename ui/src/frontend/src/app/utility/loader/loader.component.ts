@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import 'rxjs/add/operator/finally';
-import {LoaderService} from "../shared/loader.service";
+import {LoaderService} from "../../shared/loader.service";
 import {Subscription} from "rxjs/Subscription";
-import {LoaderState} from "../shared/loader";
+import {LoaderState} from "../../shared/types";
 
 @Component({
   selector: 'angular-loader',

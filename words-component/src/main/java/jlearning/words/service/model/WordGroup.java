@@ -1,4 +1,4 @@
-package telecom.service.model;
+package jlearning.words.service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

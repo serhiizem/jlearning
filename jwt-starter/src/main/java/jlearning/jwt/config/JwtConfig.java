@@ -1,4 +1,4 @@
-package jlearning.config;
+package jlearning.jwt.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,11 +7,19 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.security.KeyPair;
+import java.util.List;
 
 @Configuration
-public class JwtConfig {
+public class JwtConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new UserIdentifierArgumentResolver(tokenStore()));
+    }
 
     @Bean
     public JwtTokenStore tokenStore() {
@@ -26,10 +34,11 @@ public class JwtConfig {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        KeyPair keyPair = new KeyStoreKeyFactory(
-                new ClassPathResource("keystore.jks"), "webapp".toCharArray())
+        ClassPathResource keyStore = new ClassPathResource("keystore.jks");
+        KeyPair keyPair = new KeyStoreKeyFactory(keyStore, "webapp".toCharArray())
                 .getKeyPair("webapp");
         converter.setKeyPair(keyPair);
+
         return converter;
     }
 }

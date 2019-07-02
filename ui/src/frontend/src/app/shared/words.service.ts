@@ -1,48 +1,30 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
+import {WordGroup} from "./types";
+import {USER_VERBS} from "./endpoints";
+import {HttpClientService} from "./http.client.service";
+import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
-import {CookieService} from "ngx-cookie-service";
-import {Tariff} from "./types/tariff";
-import {map} from "rxjs/operators";
+import {TranslatableWord} from "../words/words.component";
 
 @Injectable()
-export class TariffsService {
+export class WordsService {
 
-  constructor(private cookieService: CookieService,
-              private http: HttpClient) {
+  private wordGroupsSubject = new Subject<WordGroup[]>();
+
+  wordGroupsState = this.wordGroupsSubject.asObservable();
+
+  constructor(private httpClientService: HttpClientService) {
   }
 
-  getAllRegions(): Observable<any[]> {
-    let httpHeaders = new HttpHeaders()
-      .set('Authorization', 'Bearer ' + this.cookieService.get("access_token"));
-
-    return this.http.get('/tariffs/regions', {
-      headers: httpHeaders
-    }).map(res => res as any[]);
+  loadUserVerbs(): Observable<void> {
+    return this.httpClientService.get<WordGroup[]>(USER_VERBS).map(res => {
+      this.wordGroupsSubject.next(res);
+    });
   }
 
-  getAllTariffs(): Observable<any[]> {
-    let httpHeaders = new HttpHeaders()
-      .set('Authorization', 'Bearer ' + this.cookieService.get("access_token"));
-
-    return this.http.get('/tariffs/available-tariffs', {
-      headers: httpHeaders
-    }).map(res => res as any[]);
-  }
-
-  getTariffsWithPagination(filter = '', sortOrder = 'asc',
-                           pageNumber = 0, pageSize = 3): Observable<Tariff[]> {
-    return this.http.get('/tariffs/available-tariffs', {
-      params: new HttpParams()
-        .set('Authorization', 'Bearer ' + this.cookieService.get("access_token"))
-        .set('filter', filter)
-        .set('sortOrder', sortOrder)
-        .set('pageNumber', pageNumber.toString())
-        .set('pageSize', pageSize.toString())
-    }).pipe(
-      map(res => res["payload"])
-    );
+  addVerb(verb: TranslatableWord): Observable<Object> {
+    return this.httpClientService.post(USER_VERBS, verb);
   }
 }

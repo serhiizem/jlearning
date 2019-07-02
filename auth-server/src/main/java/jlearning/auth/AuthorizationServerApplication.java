@@ -1,4 +1,4 @@
-package jlearning;
+package jlearning.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +8,7 @@ import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import static java.util.Optional.ofNullable;
-import static jlearning.security.SecurityUtils.getCurrentUserUsername;
+import static jlearning.auth.security.SecurityUtils.getCurrentUserUsername;
 
 @SpringBootApplication
 @EnableDiscoveryClient

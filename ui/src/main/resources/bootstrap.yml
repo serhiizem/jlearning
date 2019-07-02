@@ -1,3 +1,6 @@
+server:
+  port: 8084
+
 spring:
   profiles:
     active: ${SPRING_PROFILES_ACTIVE:dev}
@@ -16,7 +19,7 @@ zuul:
       sensitiveHeaders:
       url: http://localhost:9999/
     order:
-      path: /tariffs/**
+      path: /words/**
       sensitiveHeaders:
       url: http://localhost:8010/
   add-proxy-headers: true
