@@ -1,0 +1,26 @@
+<br/>
+<button [hidden]="testStarted"
+        type="button" mat-raised-button (click)="startTest()"
+        color="primary">Start test
+</button>
+<div *ngIf="testStarted">
+  <div class="row">
+    <div class="test-font-size">Please, translate:</div>
+    <div class="test-font-size word-input-shift"><b>{{currentWord.value}}</b></div>
+  </div>
+
+  <form [formGroup]="translationInputForm" #formDirective="ngForm" (ngSubmit)="checkWord(formDirective) ">
+    <mat-form-field>
+      <input [(ngModel)]='translation' formControlName="translationInput"
+             required matInput placeholder="Type a translation">
+    </mat-form-field>
+
+    <button [disabled]="translation.length == 0"
+            mat-raised-button color="primary">Check
+    </button>
+    <button type="button"
+            mat-raised-button (click)="nextWord(formDirective)"
+            color="primary">Next
+    </button>
+  </form>
+</div>

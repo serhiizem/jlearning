@@ -1,9 +1,9 @@
-package jlearning.words.service.impl;
+package jlearning.words.conversion;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
-import jlearning.words.service.ExtendedConversionService;
+import jlearning.words.conversion.ExtendedConversionService;
 
 import java.util.Collection;
 import java.util.List;

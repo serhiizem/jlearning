@@ -3,6 +3,7 @@ package jlearning.words.service.impl;
 import jlearning.words.dao.WordsDao;
 import jlearning.words.dao.domain_model.WordDto;
 import jlearning.words.service.DictionaryService;
+import jlearning.words.conversion.ExtendedConversionService;
 import jlearning.words.service.FileService;
 import jlearning.words.service.model.Word;
 import jlearning.words.service.model.WordGroup;
@@ -27,6 +28,7 @@ public class DictionaryServiceImpl implements DictionaryService {
 
     private final WordsDao wordsDao;
     private final FileService fileService;
+    private final ExtendedConversionService conversionService;
 
     @Override
     @Validate
@@ -59,5 +61,11 @@ public class DictionaryServiceImpl implements DictionaryService {
                 .map(toWordsByFirstLetterGroup)
                 .sorted(byFirstLetter)
                 .collect(toList());
+    }
+
+    @Override
+    public List<Word> findAll(String userRef) {
+        List<WordDto> allUserWords = wordsDao.findAllByUser(userRef);
+        return conversionService.convert(allUserWords, Word.class);
     }
 }

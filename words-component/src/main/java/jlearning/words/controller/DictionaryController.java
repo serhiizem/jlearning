@@ -26,7 +26,7 @@ public class DictionaryController {
 
     @GetMapping("/verbs")
     @PreAuthorize("hasAnyRole('ADMIN,STUDENT')")
-    public List<WordGroup> getUserVerbs(@InjectUserRef String userRef) {
+    public List<WordGroup> getVerbsGroupedByFirstLetter(@InjectUserRef String userRef) {
         return dictionaryService.getVerbsGroupedByFirstLetter(userRef);
     }
 
@@ -35,5 +35,11 @@ public class DictionaryController {
     public ResponseEntity addVerb(@RequestBody Word verb, @InjectUserRef String userRef) {
         dictionaryService.save(verb, userRef);
         return OK;
+    }
+
+    @GetMapping("/findAll")
+    @PreAuthorize("hasAnyRole('ADMIN,STUDENT')")
+    public List<Word> findAll(@InjectUserRef String userRef) {
+        return dictionaryService.findAll(userRef);
     }
 }

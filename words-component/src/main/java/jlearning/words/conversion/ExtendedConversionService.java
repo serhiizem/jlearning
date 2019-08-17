@@ -1,4 +1,4 @@
-package jlearning.words.service;
+package jlearning.words.conversion;
 
 import java.util.List;
 
