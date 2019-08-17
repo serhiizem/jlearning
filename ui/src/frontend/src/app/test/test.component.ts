@@ -17,6 +17,7 @@ export class TestComponent implements OnInit {
   private currentWordObs = this.currentWordSubject.asObservable();
 
   private testStarted: boolean = false;
+  private showHint: boolean = false;
   private translation: string = '';
   private wordIndex: number = 0;
   private allWords: TranslatableWord[] = [];
@@ -48,8 +49,10 @@ export class TestComponent implements OnInit {
       this.allWords = words;
       if (this.allWords.length > 0) {
         this.currentWordSubject.next(this.allWords[this.wordIndex]);
+        this.testStarted = true;
+      } else {
+        this.alertService.error("There are not words to test.");
       }
-      this.testStarted = true;
     })
   }
 
@@ -64,9 +67,7 @@ export class TestComponent implements OnInit {
   }
 
   private proceedToTheNextWord(formDirective: FormGroupDirective, isSkip: boolean): void {
-    formDirective.resetForm();
-    this.translationInputForm.reset();
-    this.translation = '';
+    this.resetForm(formDirective);
     if (!isSkip) {
       this.alertService.success("Correct");
     } else {
@@ -79,12 +80,34 @@ export class TestComponent implements OnInit {
       if (!isSkip) {
         this.alertService.success("Answer is correct. Test is complete");
       } else {
+        this.testStarted = false;
+        this.resetForm(formDirective);
         this.alertService.success("Test is complete");
       }
     }
   }
 
+  private resetForm(formDirective: FormGroupDirective): void {
+    formDirective.resetForm();
+    this.translationInputForm.reset();
+    this.translation = '';
+  }
+
   private nextWord(formDirective: FormGroupDirective): void {
     this.proceedToTheNextWord(formDirective, true);
+  }
+
+  private doShowHint(): void {
+    let currentWord: TranslatableWord = this.currentWord;
+    let fileLocation = currentWord.fileLocation;
+    if (fileLocation) {
+      this.showHint = true;
+    } else {
+      this.alertService.error("No image hint was defined for this word");
+    }
+  }
+
+  private doHideHint(): void {
+    this.showHint = false;
   }
 }

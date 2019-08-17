@@ -4,7 +4,7 @@
         color="primary">Start test
 </button>
 <div *ngIf="testStarted">
-  <div class="row">
+  <div class="row word-input-shift">
     <div class="test-font-size">Please, translate:</div>
     <div class="test-font-size word-input-shift"><b>{{currentWord.value}}</b></div>
   </div>
@@ -18,9 +18,21 @@
     <button [disabled]="translation.length == 0"
             mat-raised-button color="primary">Check
     </button>
+    <button *ngIf="!showHint" type="button"
+            mat-raised-button (click)="doShowHint()"
+            color="primary">Show hint
+    </button>
+    <button *ngIf="showHint" type="button"
+            mat-raised-button (click)="doHideHint()"
+            color="primary">Hide hint
+    </button>
     <button type="button"
             mat-raised-button (click)="nextWord(formDirective)"
             color="primary">Next
     </button>
   </form>
 </div>
+
+<img [hidden]="!showHint"
+     [src]="currentWord !== undefined ? currentWord.fileLocation : ''"
+     width="300px" height="300px">

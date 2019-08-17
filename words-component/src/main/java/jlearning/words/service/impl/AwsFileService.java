@@ -42,7 +42,7 @@ public class AwsFileService implements FileService {
 
         s3Client.putObject(request);
 
-        return destination;
+        return s3Client.getUrl(bucketName, destination).toExternalForm();
     }
 
     private AmazonS3 createClient() {

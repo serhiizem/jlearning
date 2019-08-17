@@ -18,7 +18,7 @@ zuul:
       path: /uaa/**
       sensitiveHeaders:
       url: http://localhost:9999/
-    order:
+    words:
       path: /words/**
       sensitiveHeaders:
       url: http://localhost:8010/

@@ -1,1 +1,1 @@
-export const VERB_ADDED = "Verb was successfully added to the dictionary";
+export const WORD_ADDED = "Word was successfully added to the dictionary";

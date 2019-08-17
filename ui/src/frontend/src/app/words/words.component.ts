@@ -7,13 +7,14 @@ import {map} from "rxjs/operators";
 import {WordGroup} from "../shared/types";
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import {AlertService} from "../shared/alert.service";
-import {VERB_ADDED} from "../shared/messages";
+import {WORD_ADDED} from "../shared/messages";
 import {AuthService} from "../shared/auth.service";
 
 export class TranslatableWord {
   value: string = '';
   translations: string[] = [];
   base64Image: string = '';
+  fileLocation: string = '';
 }
 
 @Component({
@@ -69,7 +70,7 @@ export class WordsComponent implements OnInit {
         this.resetForm(formDirective);
         this.loaderService.hide();
         this.clear();
-        this.alertService.success(VERB_ADDED);
+        this.alertService.success(WORD_ADDED);
       });
     });
   }
