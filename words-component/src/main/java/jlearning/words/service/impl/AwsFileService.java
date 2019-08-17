@@ -4,17 +4,18 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import jlearning.words.service.FileService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+
+import static com.amazonaws.services.s3.model.CannedAccessControlList.PublicRead;
+import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
 
 @Slf4j
 @Service
@@ -23,9 +24,12 @@ public class AwsFileService implements FileService {
 
     private static final String AWS_USER_ACCESS_KEY_ID = "ACCESS_KEY_ID";
     private static final String AWS_USER_SECRET_KEY = "SECRET_ACCESS_KEY";
+    private static final String AWS_OBJECT_CONTENT_TYPE = "plain/text";
 
     @Value("${bucket.name}")
     private String bucketName;
+    @Value("${folder.name}")
+    private String folderName;
     @Value("${region}")
     private String region;
 
@@ -49,12 +53,13 @@ public class AwsFileService implements FileService {
     }
 
     private PutObjectRequest createPutRequest(File file) {
-        String fileKey = RandomStringUtils.randomAlphabetic(10);
-        PutObjectRequest request = new PutObjectRequest(bucketName, "word-hints/file-" + fileKey, file);
-        request.withCannedAcl(CannedAccessControlList.PublicRead);
+        String fileKey = randomAlphabetic(10);
+        String fileName = folderName + "/file-" + fileKey;
+        PutObjectRequest request = new PutObjectRequest(bucketName, fileName, file);
+        request.withCannedAcl(PublicRead);
 
         ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType("plain/text");
+        metadata.setContentType(AWS_OBJECT_CONTENT_TYPE);
         request.setMetadata(metadata);
 
         return request;
