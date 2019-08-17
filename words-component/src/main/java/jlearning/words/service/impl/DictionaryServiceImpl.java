@@ -33,9 +33,11 @@ public class DictionaryServiceImpl implements DictionaryService {
                      String userRef) {
         String base64Image = word.getBase64Image();
         File imageFile = fileService.createFileFromBase64Content(base64Image);
-        fileService.upload(imageFile);
+        String fileLocation = fileService.upload(imageFile);
 
         WordDto wordDto = new WordDto(word.getValue(), userRef, word.getTranslations());
+        wordDto.setFileLocation(fileLocation);
+
         return wordsDao.save(wordDto);
     }
 

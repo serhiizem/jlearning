@@ -11,7 +11,14 @@ public interface FileService {
 
     String TEMP_FILE_NAME = "tmp.file";
 
-    void upload(File file);
+    /**
+     * Uploads file to a location, defined by subclass of {@link FileService}
+     *
+     * @param file target file to upload
+     * @return identifier of a location to where file was uploaded
+     * @see jlearning.words.service.impl.AwsFileService
+     */
+    String upload(File file);
 
     @SneakyThrows
     default File createFileFromBase64Content(String content) {

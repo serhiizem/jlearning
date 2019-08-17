@@ -13,6 +13,7 @@ import {AuthService} from "../shared/auth.service";
 export class TranslatableWord {
   value: string = '';
   translations: string[] = [];
+  base64Image: string = '';
 }
 
 @Component({
@@ -62,10 +63,12 @@ export class WordsComponent implements OnInit {
 
   addVerb(formDirective: FormGroupDirective): void {
     this.loaderService.show();
+    this.translatableWord.base64Image = this.croppedImage;
     this.wordsService.addVerb(this.translatableWord).subscribe(() => {
       this.wordsService.loadUserVerbs().subscribe(() => {
         this.resetForm(formDirective);
         this.loaderService.hide();
+        this.clear();
         this.alertService.success(VERB_ADDED);
       });
     });

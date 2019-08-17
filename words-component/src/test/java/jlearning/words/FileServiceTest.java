@@ -40,7 +40,7 @@ public class FileServiceTest {
 
     @Test
     public void shouldCreateFileFromBase64Sample() {
-        String fileContent = readContentFromSampleFile();
+        String fileContent = readContentFromSampleFile(SAMPLE_CROPPED_FILE_NAME);
         File file = fileService.createFileFromBase64Content(fileContent);
 
         assertEquals(Long.valueOf(file.length()), SAMPLE_CROPPED_FILE_NAME_AND_SIZE.getValue(),
@@ -49,10 +49,11 @@ public class FileServiceTest {
     }
 
     @SneakyThrows
-    private String readContentFromSampleFile() {
-        URL resource = getClass().getClassLoader().getResource("cropped_image_sample.txt");
+    @SuppressWarnings("SameParameterValue")
+    private String readContentFromSampleFile(String sampleFile) {
+        URL resource = getClass().getClassLoader().getResource(sampleFile);
         if (resource == null) {
-            fail(format("Sample file \"%s\" was not found in classpath", SAMPLE_CROPPED_FILE_NAME));
+            fail(format("Sample file \"%s\" was not found in classpath", sampleFile));
         }
         Path pathToSample = Paths.get(resource.toURI());
 

@@ -34,28 +34,30 @@ public class AwsFileService implements FileService {
     private String region;
 
     @Override
-    public void upload(File file) {
+    public String upload(File file) {
         AmazonS3 s3Client = createClient();
 
-        PutObjectRequest request = createPutRequest(file);
+        String destination = folderName + "/file-" + randomAlphabetic(10);
+        PutObjectRequest request = createPutRequest(file, destination);
 
         s3Client.putObject(request);
+
+        return destination;
     }
 
     private AmazonS3 createClient() {
         String accessKeyId = System.getenv().get(AWS_USER_ACCESS_KEY_ID);
         String secretAccessKey = System.getenv().get(AWS_USER_SECRET_KEY);
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
+
         return AmazonS3ClientBuilder.standard()
                 .withRegion(region)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
                 .build();
     }
 
-    private PutObjectRequest createPutRequest(File file) {
-        String fileKey = randomAlphabetic(10);
-        String fileName = folderName + "/file-" + fileKey;
-        PutObjectRequest request = new PutObjectRequest(bucketName, fileName, file);
+    private PutObjectRequest createPutRequest(File file, String fileKey) {
+        PutObjectRequest request = new PutObjectRequest(bucketName, fileKey, file);
         request.withCannedAcl(PublicRead);
 
         ObjectMetadata metadata = new ObjectMetadata();

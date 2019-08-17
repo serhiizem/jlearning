@@ -18,6 +18,8 @@ public class WordDto extends DomainEntity {
     private String value;
     private int numberOfErrors;
     private String userRef;
+    //location of an image or other metadata associated to the Word
+    private String fileLocation;
 
     @ElementCollection
     @CollectionTable(
