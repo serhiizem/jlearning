@@ -1,17 +1,10 @@
 <div class="words-controls">
-
-  <mat-form-field>
-    <input type="text" matInput required [matAutocomplete]="autoGroup">
-    <mat-autocomplete #autoGroup="matAutocomplete"
-                      (optionSelected)="addControlsToWord($event.option.value)">
-      <mat-optgroup *ngFor="let group of wordGroups | async" [label]="group.firstLetter">
-        <mat-option *ngFor="let name of group.words" [value]="name">
-          {{name}}
-        </mat-option>
-      </mat-optgroup>
-    </mat-autocomplete>
-  </mat-form-field>
-
+  <br/>
+  <br/>
+  <p>Here you can add words and translations to the dictionary.</p>
+  <p>All the words entered below will be available during the test at "TEST".</p>
+  <p>It is also optionally possible to associate an image with the word.
+    During the test it could help you to recall the translation.</p>
   <form [formGroup]="verbInputForm" #formDirective="ngForm" (ngSubmit)="addVerb(formDirective)">
     <div class="row">
       <div class="column">
@@ -75,4 +68,20 @@
       Upload Picture
     </button>
   </div>
+
+  <br/>
+  <br/>
+  <p>This is the input where you can browse all the entered words.</p>
+  <p>(should also provide deleting and editing capabilities, <i>but currently not implemented</i>)</p>
+  <mat-form-field>
+    <input type="text" matInput required [matAutocomplete]="autoGroup">
+    <mat-autocomplete #autoGroup="matAutocomplete"
+                      (optionSelected)="addControlsToWord($event.option.value)">
+      <mat-optgroup *ngFor="let group of wordGroups | async" [label]="group.firstLetter">
+        <mat-option *ngFor="let name of group.words" [value]="name">
+          {{name}}
+        </mat-option>
+      </mat-optgroup>
+    </mat-autocomplete>
+  </mat-form-field>
 </div>

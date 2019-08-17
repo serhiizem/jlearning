@@ -14,12 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import javax.imageio.ImageIO;
-import javax.xml.bind.DatatypeConverter;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 
 @Slf4j
 @Service
@@ -31,32 +26,13 @@ public class AwsFileService implements FileService {
 
     @Value("${bucket.name}")
     private String bucketName;
-    @Value("${s3.url}")
-    private String s3Url;
     @Value("${region}")
     private String region;
 
     @Override
-    public void upload(String content, String path) {
-        if (content != null && content.substring(0, 10).equals("data:image")) {
-            String base64Image = content.split(",")[1];
-            byte[] imageBytes = DatatypeConverter.parseBase64Binary(base64Image);
-            BufferedImage img;
-            try {
-                img = ImageIO.read(new ByteArrayInputStream(imageBytes));
-                File file = new File("picture." + content.split(";")[0].split("/")[1]);
-                ImageIO.write(img, content.split(";")[0].split("/")[1], file);
-                uploadFileToAmazon(path);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void uploadFileToAmazon(String pathToFile) {
+    public void upload(File file) {
         AmazonS3 s3Client = createClient();
 
-        File file = new File(pathToFile);
         PutObjectRequest request = createPutRequest(file);
 
         s3Client.putObject(request);

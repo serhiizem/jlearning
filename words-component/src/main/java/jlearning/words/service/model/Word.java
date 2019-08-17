@@ -10,4 +10,5 @@ import java.util.List;
 public class Word {
     private String value;
     private List<String> translations;
+    private String base64Image;
 }

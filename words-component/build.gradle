@@ -7,5 +7,6 @@ dependencies {
     compile "org.postgresql:postgresql:9.4-1206-jdbc42"
     compile "org.apache.commons:commons-lang3:3.0"
     compile "com.amazonaws:aws-java-sdk:1.11.340"
+    compile "commons-io:commons-io:2.6"
     compile project(':jwt-starter')
 }

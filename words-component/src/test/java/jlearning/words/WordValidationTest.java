@@ -31,13 +31,13 @@ public class WordValidationTest {
 
     @Test(expected = ValidationException.class)
     public void shouldThrowValidationExceptionIfWordValueIsNull() {
-        Word word = new Word(null, asList("translation1", "translation2"));
+        Word word = new Word(null, asList("translation1", "translation2"), "");
         dictionaryService.save(word, Mocks.MOCK_USER_REFERENCE);
     }
 
     @Test(expected = ValidationException.class)
     public void shouldThrowValidationExceptionIfTranslationsAreMissing() {
-        Word word = new Word("Mock", emptyList());
+        Word word = new Word("Mock", emptyList(), "");
         dictionaryService.save(word, Mocks.MOCK_USER_REFERENCE);
     }
 }
