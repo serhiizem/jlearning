@@ -5,68 +5,68 @@
   <p>All the words entered below will be available during the test at "TEST".</p>
   <p>It is also optionally possible to associate an image with the word.
     During the test it could help you to recall the translation.</p>
-  <form [formGroup]="verbInputForm" #formDirective="ngForm" (ngSubmit)="addVerb(formDirective)">
-    <div class="row">
-      <div class="column">
-        <mat-form-field>
-          <input [(ngModel)]='translatableWord.value' formControlName="word"
-                 required matInput placeholder="Type a verb">
-        </mat-form-field>
+  <div class="word-input-shift">
+    <form [formGroup]="verbInputForm" #formDirective="ngForm" (ngSubmit)="addVerb(formDirective)">
+      <div class="row">
+        <div class="column">
+          <mat-form-field>
+            <input [(ngModel)]='translatableWord.value' formControlName="word"
+                   required matInput placeholder="Type a verb">
+          </mat-form-field>
+        </div>
+        <div class="column word-input-shift">
+          <mat-form-field>
+            <input [(ngModel)]='translation' formControlName="translations"
+                   matInput
+                   [required]="translatableWord.translations.length == 0"
+                   placeholder="Type a translation">
+            <mat-error *ngIf="translatableWord.translations.length == 0">
+              There should be at least one translation
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div style="padding-top: 5px" class="column word-input-shift">
+          <button mat-stroked-button color="primary" type="button"
+                  (click)="addTranslation(translation)">Add translation
+          </button>
+          <table>
+            <tr *ngFor="let translation of translatableWord.translations">
+              {{translation}}
+            </tr>
+          </table>
+        </div>
       </div>
-      <div class="column">
-        <mat-form-field>
-          <input [(ngModel)]='translation' formControlName="translations"
-                 matInput
-                 [required]="translatableWord.translations.length == 0"
-                 placeholder="Add a translation">
-          <mat-error *ngIf="translatableWord.translations.length == 0">
-            There should be at least one translation
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div class="column">
-        <button mat-stroked-button color="primary" type="button"
-                (click)="addTranslation(translation)">Add translation
+      <div class="row">
+        <input #fileInput class="hidden"
+               type="file" (change)="fileChangeEvent($event)"/>
+        <div class="bg-crop-modal" (click)="clear()" [hidden]="!(imageCropStep == 2)">
+        </div>
+        <div [hidden]="!(imageCropStep == 2)" class="crop-file-choosing">
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [imageQuality]="1024"
+            format="jpeg"
+            [resizeToWidth]="300"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (loadImageFailed)="loadImageFailed()"
+          ></image-cropper>
+          <button type="button" mat-raised-button (click)="crop()">Crop</button>
+          <button type="button" mat-raised-button (click)="clear()">Cancel</button>
+        </div>
+        <img class="crop-image-result" [hidden]="!(imageCropStep == 3)" [src]="croppedImage"/>
+        <button type="button" mat-raised-button (click)="uploadPicture()"
+                color="primary">
+          Upload Picture
         </button>
-        <table>
-          <tr *ngFor="let translation of translatableWord.translations">
-            {{translation}}
-          </tr>
-        </table>
+        <div class="mat-button-height word-input-shift">
+          <button [disabled]="!translatableWord.value || translatableWord.translations.length == 0"
+                  mat-stroked-button color="primary"
+                  type="submit">Add word
+          </button>
+        </div>
       </div>
-    </div>
-
-    <div class="mat-button-height">
-      <button [disabled]="!translatableWord.value || translatableWord.translations.length == 0"
-              mat-stroked-button color="primary"
-              type="submit">Add
-      </button>
-    </div>
-  </form>
-
-  <div>
-    <input #fileInput class="hidden"
-           type="file" (change)="fileChangeEvent($event)"/>
-    <div class="bg-crop-modal" (click)="clear()" [hidden]="!(imageCropStep == 2)">
-    </div>
-    <div [hidden]="!(imageCropStep == 2)" class="crop-file-choosing">
-      <image-cropper
-        [imageChangedEvent]="imageChangedEvent"
-        [imageQuality]="1024"
-        format="jpeg"
-        [resizeToWidth]="300"
-        (imageCropped)="imageCropped($event)"
-        (imageLoaded)="imageLoaded()"
-        (loadImageFailed)="loadImageFailed()"
-      ></image-cropper>
-      <button mat-raised-button (click)="crop()">Crop</button>
-      <button mat-raised-button (click)="clear()">Cancel</button>
-    </div>
-    <img class="crop-image-result" [hidden]="!(imageCropStep == 3)" [src]="croppedImage"/>
-    <button mat-raised-button (click)="uploadPicture()"
-            color="primary">
-      Upload Picture
-    </button>
+    </form>
   </div>
 
   <br/>

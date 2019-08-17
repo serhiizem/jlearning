@@ -19,6 +19,7 @@ import java.util.Objects;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 import static jlearning.words.service.impl.LambdaHelper.*;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @Service
 @RequiredArgsConstructor
@@ -31,12 +32,15 @@ public class DictionaryServiceImpl implements DictionaryService {
     @Validate
     public Long save(@ValidatorTypes(values = WordValidator.class) Word word,
                      String userRef) {
-        String base64Image = word.getBase64Image();
-        File imageFile = fileService.createFileFromBase64Content(base64Image);
-        String fileLocation = fileService.upload(imageFile);
 
         WordDto wordDto = new WordDto(word.getValue(), userRef, word.getTranslations());
-        wordDto.setFileLocation(fileLocation);
+
+        String base64Image = word.getBase64Image();
+        if (isNotEmpty(base64Image)) {
+            File imageFile = fileService.createFileFromBase64Content(base64Image);
+            String fileLocation = fileService.upload(imageFile);
+            wordDto.setFileLocation(fileLocation);
+        }
 
         return wordsDao.save(wordDto);
     }

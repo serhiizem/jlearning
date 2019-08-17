@@ -109,5 +109,6 @@ h1 {
   width: 1000%;
 }
 
-.word-input {
+.word-input-shift {
+  padding-left: 10px;
 }
