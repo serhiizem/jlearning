@@ -3,6 +3,7 @@ package jlearning.words;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -15,10 +16,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 
+@Ignore
 @DataJpaTest
 @RunWith(SpringRunner.class)
 @AutoConfigureTestDatabase(replace = Replace.NONE)
-public class AbstractDaoTest {
+public abstract class AbstractDaoTest {
 
     @PersistenceContext
     EntityManager em;

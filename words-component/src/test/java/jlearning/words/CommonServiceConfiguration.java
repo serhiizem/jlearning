@@ -4,7 +4,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import jlearning.words.service.impl.ExtendedConversionServiceImpl;
-import jlearning.words.service.impl.FileServiceImpl;
+import jlearning.words.service.impl.AwsFileService;
 
 @Configuration
 @ComponentScan(
@@ -16,7 +16,7 @@ import jlearning.words.service.impl.FileServiceImpl;
                         type = FilterType.ASSIGNABLE_TYPE,
                         classes = {
                                 ExtendedConversionServiceImpl.class,
-                                FileServiceImpl.class
+                                AwsFileService.class
                         }
                 )
         }

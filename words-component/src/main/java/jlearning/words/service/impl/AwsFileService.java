@@ -4,15 +4,15 @@ import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.transfer.TransferManager;
-import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
-import com.amazonaws.services.s3.transfer.Upload;
-import lombok.SneakyThrows;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import jlearning.words.service.FileService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
-import jlearning.words.service.FileService;
 
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
@@ -24,7 +24,10 @@ import java.io.IOException;
 @Slf4j
 @Service
 @PropertySource("s3.properties")
-public class FileServiceImpl implements FileService {
+public class AwsFileService implements FileService {
+
+    private static final String AWS_USER_ACCESS_KEY_ID = "ACCESS_KEY_ID";
+    private static final String AWS_USER_SECRET_KEY = "SECRET_ACCESS_KEY";
 
     @Value("${bucket.name}")
     private String bucketName;
@@ -50,20 +53,34 @@ public class FileServiceImpl implements FileService {
         }
     }
 
-    @SneakyThrows(InterruptedException.class)
-    private void uploadFileToAmazon(String pathToFile) {
-        String accessKeyId = System.getenv().get("ACCESS_KEY_ID");
-        String secretAccessKey = System.getenv().get("SECRET_ACCESS_KEY");
+    public void uploadFileToAmazon(String pathToFile) {
+        AmazonS3 s3Client = createClient();
+
+        File file = new File(pathToFile);
+        PutObjectRequest request = createPutRequest(file);
+
+        s3Client.putObject(request);
+    }
+
+    private AmazonS3 createClient() {
+        String accessKeyId = System.getenv().get(AWS_USER_ACCESS_KEY_ID);
+        String secretAccessKey = System.getenv().get(AWS_USER_SECRET_KEY);
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKeyId, secretAccessKey);
-        AmazonS3 s3Client = AmazonS3ClientBuilder.standard()
+        return AmazonS3ClientBuilder.standard()
+                .withRegion(region)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
                 .build();
+    }
 
-        TransferManager tm = TransferManagerBuilder.standard()
-                .withS3Client(s3Client)
-                .build();
+    private PutObjectRequest createPutRequest(File file) {
+        String fileKey = RandomStringUtils.randomAlphabetic(10);
+        PutObjectRequest request = new PutObjectRequest(bucketName, "word-hints/file-" + fileKey, file);
+        request.withCannedAcl(CannedAccessControlList.PublicRead);
 
-        Upload upload = tm.upload(bucketName, "", new File(pathToFile));
-        upload.waitForCompletion();
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setContentType("plain/text");
+        request.setMetadata(metadata);
+
+        return request;
     }
 }
