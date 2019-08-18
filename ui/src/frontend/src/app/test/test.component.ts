@@ -68,6 +68,7 @@ export class TestComponent implements OnInit {
 
   private proceedToTheNextWord(formDirective: FormGroupDirective, isSkip: boolean): void {
     this.resetForm(formDirective);
+    this.doHideHint();
     if (!isSkip) {
       this.alertService.success("Correct");
     } else {
@@ -77,6 +78,8 @@ export class TestComponent implements OnInit {
     if (this.wordIndex < this.allWords.length) {
       this.currentWordSubject.next(this.allWords[this.wordIndex]);
     } else {
+      this.wordIndex = 0;
+      this.testStarted = false;
       if (!isSkip) {
         this.alertService.success("Answer is correct. Test is complete");
       } else {
