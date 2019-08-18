@@ -1,5 +1,6 @@
 package jlearning.words;
 
+import com.github.springtestdbunit.annotation.DatabaseOperation;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import jlearning.words.dao.WordsDao;
 import jlearning.words.dao.domain_model.WordDto;
@@ -12,7 +13,10 @@ import java.util.List;
 import static jlearning.words.Mocks.MOCK_USER_REFERENCE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@DatabaseSetup("/user_words_data.xml")
+@DatabaseSetup(
+        type = DatabaseOperation.INSERT,
+        value = "/user_words_data.xml"
+)
 @ContextConfiguration(classes = WordsDaoTestConfig.class)
 public class WordsDaoTest extends AbstractDaoTest {
 
