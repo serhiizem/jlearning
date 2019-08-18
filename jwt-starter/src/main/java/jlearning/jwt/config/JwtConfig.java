@@ -18,7 +18,7 @@ public class JwtConfig implements WebMvcConfigurer {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(new UserIdentifierArgumentResolver(tokenStore()));
+        resolvers.add(new UserIdentifierArgumentResolver(tokenStore(), tokenExtractor()));
     }
 
     @Bean
@@ -29,6 +29,11 @@ public class JwtConfig implements WebMvcConfigurer {
     @Bean
     public TokenEnhancer tokenEnhancer() {
         return new CustomTokenEnhancer();
+    }
+
+    @Bean
+    public TokenExtractor tokenExtractor() {
+        return new TokenExtractor();
     }
 
     @Bean

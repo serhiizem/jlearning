@@ -17,18 +17,18 @@ zuul:
     uaa:
       path: /uaa/**
       sensitiveHeaders:
-      url: http://auth-server:9999/
+      url: http://localhost:9999/
     words:
       path: /words/**
       sensitiveHeaders:
-      url: http://words-component:8010/
+      url: http://localhost:8010/
   add-proxy-headers: true
 
 security:
   oauth2:
     client:
-      access-token-uri: http://ui:8084/uaa/oauth/token
-      user-authorization-uri: http://ui:8084/uaa/oauth/authorize
+      access-token-uri: http://localhost:8084/uaa/oauth/token
+      user-authorization-uri: http://localhost:8084/uaa/oauth/authorize
       client-id: webapp
     resource:
           jwt:

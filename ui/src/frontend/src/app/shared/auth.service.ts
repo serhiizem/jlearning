@@ -8,6 +8,8 @@ import {CookieService} from "ngx-cookie-service";
 import {Router} from "@angular/router";
 import * as decode from 'jwt-decode';
 import {LoaderService} from "./loader.service";
+import {ACCESS_TOKEN} from "./endpoints";
+import {ACCESS_TOKEN_VALUE} from "./constants";
 
 export class User {
   id: string = '';
@@ -45,7 +47,7 @@ export class AuthService {
     });
 
     this.loaderService.show();
-    this.http.post('/uaa/oauth/token', params.toString(), {
+    this.http.post(ACCESS_TOKEN, params.toString(), {
       headers: headers
     })
       .subscribe(token => {
@@ -63,7 +65,7 @@ export class AuthService {
 
   private saveToken(token) {
     let expireDate = new Date().getTime() + (1000 * token.expires_in);
-    this.cookieService.set("access_token", token.access_token, expireDate);
+    this.cookieService.set(ACCESS_TOKEN_VALUE, token.access_token, expireDate);
   }
 
   private doRedirectBasedOnToken(token) {

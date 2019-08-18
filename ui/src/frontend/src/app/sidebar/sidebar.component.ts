@@ -27,6 +27,10 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuItems = ROUTES;
+    let authenticated = localStorage.getItem("isAuthenticated");
+    if (authenticated !== undefined) {
+      this.authenticated = Boolean(authenticated);
+    }
 
     if (isDevMode()) {
       this.authenticated = true;
@@ -34,6 +38,7 @@ export class SidebarComponent implements OnInit {
       this.authService._authenticated$.subscribe(
         isAuthenticated => {
           this.authenticated = isAuthenticated;
+          localStorage.setItem("isAuthenticated", isAuthenticated.toString());
         })
     }
   }

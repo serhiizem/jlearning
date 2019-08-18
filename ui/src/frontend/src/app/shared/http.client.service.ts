@@ -4,6 +4,7 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/catch";
 import {CookieService} from "ngx-cookie-service";
 import {Observable} from "rxjs/Observable";
+import {ACCESS_TOKEN_VALUE} from "./constants";
 
 @Injectable()
 export class HttpClientService {
@@ -27,9 +28,14 @@ export class HttpClientService {
     return this.http.post(url, body, {headers: authHeaders});
   }
 
+  delete(url: string): Observable<Object> {
+    let authHeaders = this.getAuthHeaders();
+    return this.http.delete(url, {headers: authHeaders});
+  }
+
   getAuthHeaders(): HttpHeaders {
     return new HttpHeaders()
-      .set('Authorization', 'Bearer ' + this.cookieService.get("access_token"));
+      .set('Authorization', 'Bearer ' + this.cookieService.get(ACCESS_TOKEN_VALUE));
   }
 
   extractHttpParams(params?: any): HttpParams {

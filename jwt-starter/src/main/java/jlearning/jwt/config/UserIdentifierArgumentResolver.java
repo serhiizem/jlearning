@@ -18,16 +18,21 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import java.util.Map;
 
+import static java.util.Optional.ofNullable;
 import static jlearning.jwt.config.CustomTokenEnhancer.USER_ID_CUSTOM_JWT_PARAM;
 
 @RequiredArgsConstructor
 public class UserIdentifierArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final TokenStore tokenStore;
+    private final TokenExtractor tokenExtractor;
 
     @Override
-    public boolean supportsParameter(MethodParameter parameter) {
-        InjectUserRef injectUserRef = parameter.getParameterAnnotation(InjectUserRef.class);
+    public boolean supportsParameter(@Nullable MethodParameter parameter) {
+        InjectUserRef injectUserRef = ofNullable(parameter)
+                .map(mp -> mp.getParameterAnnotation(InjectUserRef.class))
+                .orElse(null);
+
         return injectUserRef != null;
     }
 
@@ -36,26 +41,10 @@ public class UserIdentifierArgumentResolver implements HandlerMethodArgumentReso
                                   ModelAndViewContainer mavContainer,
                                   @Nullable NativeWebRequest webRequest,
                                   WebDataBinderFactory binderFactory) {
-        String oAuthToken = getOAuthToken();
+        String oAuthToken = tokenExtractor.getOAuthToken();
         OAuth2AccessToken oAuth2AccessToken = tokenStore.readAccessToken(oAuthToken);
         Map<String, Object> additionalInformation = oAuth2AccessToken.getAdditionalInformation();
 
         return additionalInformation.get(USER_ID_CUSTOM_JWT_PARAM);
-    }
-
-    private String getOAuthToken() {
-        Authentication principal = SecurityContextHolder.getContext().getAuthentication();
-
-        if (principal instanceof OAuth2Authentication) {
-            OAuth2Authentication authentication = (OAuth2Authentication) principal;
-            Object details = authentication.getDetails();
-
-            if (details instanceof OAuth2AuthenticationDetails) {
-                OAuth2AuthenticationDetails oauthDetails = (OAuth2AuthenticationDetails) details;
-
-                return oauthDetails.getTokenValue();
-            }
-        }
-        throw new AuthenticationTokenUnavailableException();
     }
 }

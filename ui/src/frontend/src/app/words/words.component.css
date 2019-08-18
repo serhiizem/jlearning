@@ -106,5 +106,6 @@ h1 {
 }
 
 .words-controls {
-  width: 1000%;
+  width: 100%;
+  padding-left: 20px;
 }
