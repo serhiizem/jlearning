@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <words id="1" value="erklären" number_of_errors="0" user_ref="200" />
+    <words id="2" value="erkälten" number_of_errors="0" user_ref="200" />
+    <words id="3" value="fahren" number_of_errors="0" user_ref="201" />
+    <words id="4" value="erzählen" number_of_errors="0" user_ref="201" />
+</dataset>

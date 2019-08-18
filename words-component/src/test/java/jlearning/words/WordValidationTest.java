@@ -15,7 +15,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = ValidationTestConfig.class)
+@ContextConfiguration(classes = ServiceTestConfig.class)
 public class WordValidationTest {
 
     @MockBean
@@ -31,13 +31,13 @@ public class WordValidationTest {
 
     @Test(expected = ValidationException.class)
     public void shouldThrowValidationExceptionIfWordValueIsNull() {
-        Word word = new Word(null, asList("translation1", "translation2"), "");
+        Word word = new Word(null, asList("translation1", "translation2"), "", "");
         dictionaryService.save(word, Mocks.MOCK_USER_REFERENCE);
     }
 
     @Test(expected = ValidationException.class)
     public void shouldThrowValidationExceptionIfTranslationsAreMissing() {
-        Word word = new Word("Mock", emptyList(), "");
+        Word word = new Word("Mock", emptyList(), "", "");
         dictionaryService.save(word, Mocks.MOCK_USER_REFERENCE);
     }
 }

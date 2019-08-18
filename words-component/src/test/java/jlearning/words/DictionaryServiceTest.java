@@ -23,7 +23,7 @@ import static jlearning.words.Mocks.MOCK_USER_WORD_DTOS;
 
 @Slf4j
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = CommonServiceConfiguration.class)
+@ContextConfiguration(classes = ServiceTestConfig.class)
 public class DictionaryServiceTest {
 
     @MockBean

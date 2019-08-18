@@ -1,16 +1,18 @@
 package jlearning.words;
 
+import com.github.springtestdbunit.annotation.DatabaseSetup;
+import jlearning.words.dao.WordsDao;
+import jlearning.words.dao.domain_model.WordDto;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import jlearning.words.dao.WordsDao;
-import jlearning.words.dao.domain_model.WordDto;
 
 import java.util.List;
 
 import static jlearning.words.Mocks.MOCK_USER_REFERENCE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//@DatabaseSetup("user_words_data.xml")
+@DatabaseSetup("/user_words_data.xml")
 @ContextConfiguration(classes = WordsDaoTestConfig.class)
 public class WordsDaoTest extends AbstractDaoTest {
 
@@ -18,10 +20,11 @@ public class WordsDaoTest extends AbstractDaoTest {
     private WordsDao wordsDao;
 
     @Test
-    public void s() {
+    public void shouldRetrieveWordOnlyRelatedToRequestedUser() {
         List<WordDto> words = wordsDao.findAllByUser(MOCK_USER_REFERENCE);
+
         for (WordDto word : words) {
-            System.out.println(word);
+            assertEquals(MOCK_USER_REFERENCE, word.getUserRef());
         }
     }
 }
