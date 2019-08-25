@@ -12,11 +12,13 @@ Project that is intended to help users to grasp new foreign languages.
 - Docker
 
 ### Running the project:
-Provide access information for connection to s3 bucket specifying *ACCESS_KEY_ID* and *SECRET_ACCESS_KEY* in  ./docker-compose.yml
 
 ```bash
 git clone https://github.com/serhiizem/jlearning.git
 cd jlearning
+```
+Provide access information for connection to s3 bucket specifying *ACCESS_KEY_ID* and *SECRET_ACCESS_KEY* in  ./docker-compose.yml
+```bash
 ./gradlew build
 docker-compose up
 ```
