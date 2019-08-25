@@ -24,4 +24,9 @@ public class WordsDaoImpl extends BaseDaoImpl<WordDto> implements WordsDao {
         getSession().save(entity);
         return entity.getId();
     }
+
+    @Override
+    public void deleteAll() {
+        getSession().createQuery("DELETE FROM WordDto");
+    }
 }

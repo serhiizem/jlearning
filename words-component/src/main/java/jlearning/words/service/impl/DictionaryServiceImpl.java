@@ -68,4 +68,9 @@ public class DictionaryServiceImpl implements DictionaryService {
         List<WordDto> allUserWords = wordsDao.findAllByUser(userRef);
         return conversionService.convert(allUserWords, Word.class);
     }
+
+    @Override
+    public void clearDb() {
+        wordsDao.deleteAll();
+    }
 }
