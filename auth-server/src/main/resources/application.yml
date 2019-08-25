@@ -18,7 +18,7 @@ spring:
         temp.use_jdbc_metadata_defaults: false
       database-platform: org.hibernate.dialect.PostgreSQL9Dialect
   datasource:
-    url: jdbc:postgresql://postgres:5432/postgres?user=postgres&password=postgres
+    url: jdbc:postgresql://ec2-54-195-252-243.eu-west-1.compute.amazonaws.com:5432/d8da2s176qmgij?user=geenmmmyecipxo&password=fb4d5088b24a7f5c26d8a2b2fb8fa33a7a72d0e81a5ed02b6be0991d33f990fe
     driver-class-name: org.postgresql.Driver
     tomcat:
       max-active: 8

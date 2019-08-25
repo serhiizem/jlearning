@@ -27,6 +27,9 @@ services:
       - app-network
   words-component:
     build: ./words-component
+    environment:
+      ACCESS_KEY_ID:
+      SECRET_ACCESS_KEY:
     ports:
       - '8010:8010'
     depends_on:
