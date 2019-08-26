@@ -2,7 +2,7 @@
 Project that is intended to help users to grasp new foreign languages.
 
 ### Technologies used:
-- Amazon S3
+- Amazon S3, EC2, RDS
 - Spring Cloud
     - Service Registration and Discovery
     - Zuul routing
