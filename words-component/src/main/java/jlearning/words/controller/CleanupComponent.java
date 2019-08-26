@@ -14,18 +14,13 @@ public class CleanupComponent {
     private final DictionaryService dictionaryService;
 
     /**
-     * Every minute deletes all words in database.
+     * Every hour deletes all words in database.
      * <p>
      * It is needed because currently project supports only one user,
      * thus usages of application may create confusing overlapping data
      */
-    @Scheduled(cron = "0 * * * * *")
+    @Scheduled(cron = "0 0 */1 * * *")
     public void deleteAllWords() {
-        try {
-            dictionaryService.clearDb();
-            log.info("Database was cleared of stale entries");
-        } catch (Exception e) {
-            log.error("", e);
-        }
+        dictionaryService.clearDb();
     }
 }

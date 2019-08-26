@@ -88,7 +88,6 @@ export class WordsComponent implements OnInit {
   }
 
   addControlsToWord(wordId: string) {
-    console.log(wordId);
   }
 
   uploadPicture(): void {

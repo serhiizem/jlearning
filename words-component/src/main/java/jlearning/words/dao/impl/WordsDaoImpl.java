@@ -2,6 +2,7 @@ package jlearning.words.dao.impl;
 
 import jlearning.words.dao.WordsDao;
 import jlearning.words.dao.domain_model.WordDto;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public class WordsDaoImpl extends BaseDaoImpl<WordDto> implements WordsDao {
 
     @Override
     public void deleteAll() {
-        getSession().createQuery("DELETE FROM WordDto");
+        Session session = getSession();
+        session.createNativeQuery("DELETE FROM TRANSLATIONS").executeUpdate();
+        session.createQuery("DELETE FROM WordDto").executeUpdate();
     }
 }

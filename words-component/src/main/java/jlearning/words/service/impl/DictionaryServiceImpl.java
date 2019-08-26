@@ -1,9 +1,9 @@
 package jlearning.words.service.impl;
 
+import jlearning.words.conversion.ExtendedConversionService;
 import jlearning.words.dao.WordsDao;
 import jlearning.words.dao.domain_model.WordDto;
 import jlearning.words.service.DictionaryService;
-import jlearning.words.conversion.ExtendedConversionService;
 import jlearning.words.service.FileService;
 import jlearning.words.service.model.Word;
 import jlearning.words.service.model.WordGroup;
@@ -11,6 +11,7 @@ import jlearning.words.service.validation.Validate;
 import jlearning.words.service.validation.ValidatorTypes;
 import jlearning.words.service.validation.validators.WordValidator;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -22,6 +23,7 @@ import static java.util.stream.Collectors.toList;
 import static jlearning.words.service.impl.LambdaHelper.*;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class DictionaryServiceImpl implements DictionaryService {
@@ -71,6 +73,11 @@ public class DictionaryServiceImpl implements DictionaryService {
 
     @Override
     public void clearDb() {
-        wordsDao.deleteAll();
+        try {
+            wordsDao.deleteAll();
+            log.info("Database was cleared of stale entries");
+        } catch (Exception e) {
+            log.error("", e);
+        }
     }
 }
