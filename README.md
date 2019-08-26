@@ -2,7 +2,7 @@
 Project that is intended to help users to grasp new foreign languages.
 
 ### Technologies used:
-- Amazon S3
+- Amazon S3, EC2, RDS
 - Spring Cloud
     - Service Registration and Discovery
     - Zuul routing
@@ -29,3 +29,5 @@ Project contains custom Spring Boot starter that defines security configuration 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   jlearning.jwt.config.JwtConfig
 ```
+### Database access architecture
+![database access architecture img](https://i.imgur.com/CJGmt61.jpg)
