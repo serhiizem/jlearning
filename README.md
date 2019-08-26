@@ -31,5 +31,5 @@ Project contains custom Spring Boot starter that defines security configuration 
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   jlearning.jwt.config.JwtConfig
 ```
-### Project architecture that allows access to databse in private subnet 
+### Project architecture that allows access to databse in private subnet:
 ![database access architecture img](https://i.imgur.com/CJGmt61.jpg)
