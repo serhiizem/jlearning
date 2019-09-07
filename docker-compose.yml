@@ -1,23 +1,14 @@
-version: '3.4'
+version: '3'
 
 services:
   discovery-server:
-    build: ./discovery-server
+    build: sergeyzem/discovery-server
     ports:
       - '8761:8761'
     networks:
       - app-network
-  postgres:
-    image: 'postgres:9.6-alpine'
-    environment:
-      POSTGRES_USER: 'postgres'
-      POSTGRES_PASSWORD: 'postgres'
-    ports:
-      - '5432:5432'
-    networks:
-      - app-network
   auth-server:
-    build: ./auth-server
+    build: sergeyzem/auth-server
     ports:
       - '9999:9999'
     depends_on:
@@ -26,10 +17,10 @@ services:
     networks:
       - app-network
   words-component:
-    build: ./words-component
+    build: sergeyzem/words-component
     environment:
-      ACCESS_KEY_ID:
-      SECRET_ACCESS_KEY:
+      ACCESS_KEY_ID: AKIAU3YAHEUC2Z5KUYHS
+      SECRET_ACCESS_KEY: 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
     ports:
       - '8010:8010'
     depends_on:
@@ -38,7 +29,7 @@ services:
     networks:
       - app-network
   ui:
-    build: ./ui
+    build: sergeyzem/ui
     ports:
       - '8084:8084'
     depends_on:

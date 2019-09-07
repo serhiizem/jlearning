@@ -27,7 +27,7 @@ docker-compose up
 Project contains custom Spring Boot starter that defines security configuration for all dependent microservices:
 ```properties
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  jlearning.jwt.config.JwtConfig
+  JwtConfig
 ```
 ### Database access architecture
 ![database access architecture img](https://i.imgur.com/CJGmt61.jpg)

@@ -1,6 +1,6 @@
 rootProject.name = 'jlearning'
 
-include 'ui'
+include 'gateway'
 include 'auth-server'
 include 'words-component'
 include 'discovery-server'

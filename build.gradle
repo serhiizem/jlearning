@@ -55,11 +55,4 @@ subprojects {
         testCompile "org.junit.jupiter:junit-jupiter-engine:5.3.2"
         testCompile "org.springframework.boot:spring-boot-starter-test"
     }
-
-    task cleanOut(type: Delete) {
-        //noinspection GroovyAssignabilityCheck
-        delete 'out'
-    }
-
-    tasks.clean.dependsOn(cleanOut)
 }

@@ -1,5 +1,6 @@
 package jlearning.auth.security;
 
+import jlearning.auth.repository.SysUserRepository;
 import jlearning.jwt.model.SecurityUser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import jlearning.auth.domain.SysRole;
-import jlearning.auth.repository.SysUserRepository;
 
 import java.util.Collection;
 import java.util.Set;
