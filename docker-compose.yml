@@ -19,8 +19,8 @@ services:
   words-component:
     build: sergeyzem/words-component
     environment:
-      ACCESS_KEY_ID: AKIAU3YAHEUC2Z5KUYHS
-      SECRET_ACCESS_KEY: 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
+      ACCESS_KEY_ID:
+      SECRET_ACCESS_KEY:
     ports:
       - '8010:8010'
     depends_on:

@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: words-component
+  labels:
+    app: words-component
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: words-component
+  template:
+    metadata:
+      labels:
+        app: words-component
+    spec:
+      containers:
+        - name: words-component
+          image: sergeyzem/words-component
+          ports:
+            - containerPort: 8010
+          env:
+            - name: ACCESS_KEY_ID
+              value:
+            - name: SECRET_ACCESS_KEY
+              value:
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: words-component-service
+spec:
+  selector:
+    app: words-component
+  ports:
+    - name: words-component
+      port: 8010
+      targetPort: 8010
