@@ -1,4 +1,4 @@
-package telecom;
+package jlearning.ui;
 
 import org.springframework.lang.NonNull;
 import org.springframework.security.web.csrf.CsrfToken;

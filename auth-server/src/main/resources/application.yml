@@ -18,12 +18,7 @@ spring:
         temp.use_jdbc_metadata_defaults: false
       database-platform: org.hibernate.dialect.PostgreSQL9Dialect
   datasource:
-    url: jdbc:postgresql://127.0.0.1:5432/postgres?user=postgres&password=postgres
+    url: jdbc:postgresql://postgres.default.svc.cluster.local:5432/postgres?user=postgres&password=postgres
     driver-class-name: org.postgresql.Driver
     tomcat:
       max-active: 8
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://${aws.eureka.host:localhost:8761}/eureka/

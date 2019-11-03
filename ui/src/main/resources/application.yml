@@ -7,28 +7,23 @@ spring:
   application:
       name: api-gateway
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://${aws.eureka.host:localhost:8761}/eureka/
-
 zuul:
   routes:
     uaa:
       path: /uaa/**
       sensitiveHeaders:
-      url: http://localhost:9999/
+      url: http://auth-server.default.svc.cluster.local:9999/
     words:
       path: /words/**
       sensitiveHeaders:
-      url: http://localhost:8010/
+      url: http://words-component.default.svc.cluster.local:8010/
   add-proxy-headers: true
 
 security:
   oauth2:
     client:
-      access-token-uri: http://localhost:8084/uaa/oauth/token
-      user-authorization-uri: http://localhost:8084/uaa/oauth/authorize
+      access-token-uri: http://ui.default.svc.cluster.local:8084/uaa/oauth/token
+      user-authorization-uri: http://ui.default.svc.cluster.local:8084/uaa/oauth/authorize
       client-id: webapp
     resource:
           jwt:
