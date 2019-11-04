@@ -14,9 +14,14 @@ spec:
       labels:
         app: auth-server
     spec:
+      dnsPolicy: "None"
       dnsConfig:
         options:
           - name: single-request-reopen
+          - name: ndots
+            value: "0"
+        nameservers:
+          - 10.100.0.10
       containers:
         - name: auth-server
           image: sergeyzem/auth-server
