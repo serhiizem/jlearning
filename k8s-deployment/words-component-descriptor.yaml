@@ -17,6 +17,9 @@ spec:
       labels:
         app: words-component
     spec:
+      dnsConfig:
+        options:
+          - name: single-request-reopen
       containers:
         - name: words-component
           image: sergeyzem/words-component
