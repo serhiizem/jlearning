@@ -41,11 +41,14 @@ spec:
       storage: 5Gi
 
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
 spec:
+  selector:
+    matchLabels:
+      app: postgres
   replicas: 1
   template:
     metadata:
@@ -76,6 +79,8 @@ metadata:
   name: postgres
 spec:
   type: ClusterIP
+  selector:
+    app: postgres
   ports:
     - name: http
       port: 5432

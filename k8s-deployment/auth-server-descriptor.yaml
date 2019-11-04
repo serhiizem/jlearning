@@ -5,6 +5,9 @@ metadata:
   labels:
     app: auth-server
 spec:
+  dnsConfig:
+    options:
+      - name: single-request-reopen
   replicas: 1
   selector:
     matchLabels:
