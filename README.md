@@ -1,9 +1,6 @@
 # JLearning
 Project that is intended to help users to grasp new foreign languages.
 
-#### Demo (creds: student student):
-http://ec2-3-15-211-187.us-east-2.compute.amazonaws.com:8084
-
 ### Technologies used:
 - Amazon S3, EC2, RDS
 - Spring Cloud
