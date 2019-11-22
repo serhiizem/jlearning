@@ -16,10 +16,10 @@ spec:
     spec:
       dnsPolicy: "None"
       dnsConfig:
+        searches:
+          - us-east-2.compute.internal
         options:
           - name: single-request-reopen
-          - name: ndots
-            value: "0"
         nameservers:
           - 10.100.0.10
       containers:

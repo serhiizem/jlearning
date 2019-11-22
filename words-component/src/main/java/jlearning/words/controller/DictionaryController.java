@@ -42,4 +42,9 @@ public class DictionaryController {
     public List<Word> findAll(@InjectUserRef String userRef) {
         return dictionaryService.findAll(userRef);
     }
+
+    @GetMapping
+    public ResponseEntity healthCheck() {
+        return OK;
+    }
 }

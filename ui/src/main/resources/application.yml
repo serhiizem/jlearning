@@ -2,8 +2,6 @@ server:
   port: 8084
 
 spring:
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
   application:
       name: api-gateway
 
@@ -12,18 +10,18 @@ zuul:
     uaa:
       path: /uaa/**
       sensitiveHeaders:
-      url: http://auth-server.default.svc.cluster.local:9999/
+      url: http://${AUTH_SERVER_ADDRESS:localhost}:9999/
     words:
       path: /words/**
       sensitiveHeaders:
-      url: http://words-component.default.svc.cluster.local:8010/
+      url: http://${WORDS_COMPONENT_ADDRESS:localhost}:8010/
   add-proxy-headers: true
 
 security:
   oauth2:
     client:
-      access-token-uri: http://ui.default.svc.cluster.local:8084/uaa/oauth/token
-      user-authorization-uri: http://ui.default.svc.cluster.local:8084/uaa/oauth/authorize
+      access-token-uri: http://127.0.0.1:8084/uaa/oauth/token
+      user-authorization-uri: http://127.0.0.1:8084/uaa/oauth/authorize
       client-id: webapp
     resource:
           jwt:
