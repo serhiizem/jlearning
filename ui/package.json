@@ -28,7 +28,7 @@
     "grpcc": "^1.1.1",
     "jquery": "^3.2.1",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.19",
     "ngx-cookie-service": "^1.0.10",
     "ngx-image-cropper": "^0.2.8",
     "rxjs": "^5.5.6",
